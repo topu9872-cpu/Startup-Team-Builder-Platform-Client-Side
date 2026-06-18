@@ -55,6 +55,7 @@ export default function Login() {
     const { data, error } = await authClient.signIn.email({
       email: formData.email,
       password: formData.password,
+      remamber:formData.remamber
     });
 
     if (data) {
@@ -178,6 +179,7 @@ export default function Login() {
           >
             <label className="flex items-center gap-2 cursor-pointer select-none">
               <input
+              name="remamber"
                 type="checkbox"
                 className="accent-purple-500 rounded border-slate-800 bg-slate-950/50 focus:ring-0 focus:ring-offset-0"
               />

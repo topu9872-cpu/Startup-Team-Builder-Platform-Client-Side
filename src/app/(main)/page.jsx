@@ -1,14 +1,16 @@
 import HeroBanner from "@/MainComponents/FontPage/Banner";
-import BrowseOpportunities from "@/MainComponents/FontPage/BrowseOpportunities";
-import BrowseStartups from "@/MainComponents/FontPage/BrowseStartups";
-import StartupDetails from "@/MainComponents/FontPage/StartupDetails";
+import FeaturedOpportunitiesPage from "@/MainComponents/FontPage/FeaturedOpportunitiesPage";
+import FeaturedStartups from "@/MainComponents/FontPage/FeaturedStartups";
+import { SuccessStoriesComponent } from "@/MainComponents/FontPage/SuccessStories";
+import { WhyJoinComponent } from "@/MainComponents/FontPage/WhyJoinComponent";
 
 
 export default function Home() {
   return <div>
     <HeroBanner/>
-    <BrowseStartups/>
-    <StartupDetails/>
-    <BrowseOpportunities/>
+    <FeaturedStartups/>
+    <FeaturedOpportunitiesPage/>
+    <WhyJoinComponent/>
+    <SuccessStoriesComponent/>
   </div>
 }

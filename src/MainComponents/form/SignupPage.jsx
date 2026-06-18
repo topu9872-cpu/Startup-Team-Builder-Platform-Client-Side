@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Mail, Lock, User, ArrowRight, Eye, EyeClosed } from "lucide-react";
 import { FaGithub, FaRegImage } from "react-icons/fa";
 import Link from "next/link";
-import { uploadImage } from "@/lib/image";
+import { uploadImage } from "@/lib/imageBB";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";

@@ -15,7 +15,7 @@ const NavBar = () => {
   } = authClient.useSession();
 
   const user = session?.user;
-  console.log(user);
+
   const navData = (
     <>
       <NavLink href="/">Home</NavLink>
@@ -24,12 +24,21 @@ const NavBar = () => {
     </>
   );
 
-  const priveteNav = (
-    <>
-      <NavLink href="/dashboard">Dashboard</NavLink>
-      <NavLink href="/profile"> Profile</NavLink>
-    </>
-  );
+  const priveteNavData = [];
+
+  const priveteNav = {
+    admin: "/dashboard/overview",
+    founder: "/dashboard/founder-overview",
+    collaborator: "/dashboard/collaboratoroverview",
+  };
+
+  if (user?.email) {
+    priveteNavData.push(
+      <NavLink key={user?.role} href={priveteNav[user?.role]}>
+        Dashboard
+      </NavLink>,
+    );
+  }
 
   const handleLogout = async () => {
     await authClient.signOut({
@@ -66,7 +75,7 @@ const NavBar = () => {
               tabIndex="-1"
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-              {navData}
+              {navData} {priveteNavData}
             </ul>
           </div>
           <Link
@@ -74,66 +83,60 @@ const NavBar = () => {
             className="inline-block font-extrabold text-xl bg-linear-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent"
           >
             Startup Hub
-          </Link>{" "}
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-6">{navData}</ul>
+          <ul className="menu menu-horizontal border border-purple-200 px-2 rounded-full gap-6">
+            {navData} {priveteNavData}
+          </ul>
         </div>
-
-        <div className="navbar-end">
-          {user ? (
-            <div>
-              {isPending ? (
-                <span className="loading loading-spinner text-purple-500"></span>
-              ) : (
-                <div className="dropdown dropdown-end">
-                  <div
-                    tabIndex={0}
-                    role="button"
-                    className="btn btn-ghost btn-circle avatar"
-                  >
-                    <div className="w-10 rounded-full">
-                      <Image
-                        src={user?.image || "/default-avatar.png"}
-                        height={70}
-                        width={70}
-                        alt="user image"
-                      />
-                    </div>
+        {isPending ? (
+          <div className="ml-20 md:ml-40">
+            <span className="loading loading-spinner  text-purple-500"></span>
+          </div>
+        ) : (
+          <div className="navbar-end">
+            {user ? (
+              <div className="flex gap-5">
+                <h1 className="text-lg w-26 truncate font-medium text-purple-400 hidden sm:block">
+                  Hi, {user?.name}
+                </h1>
+                <div className="avatar">
+                  <div className="w-16 rounded-full ring border-2 shadow border-purple-600 ring-purple-600/20">
+                    <Image
+                      src={user?.image || "/default-avatar.png"}
+                      height={40} // Scaled properly for a 40px (w-10) display circle
+                      width={40}
+                      alt="user image"
+                    />
                   </div>
-                  <ul
-                    tabIndex="-1"
-                    className="menu menu-sm space-y-2 py-4 dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-                  >
-                    {priveteNav}
-                    <Link
-                      onClick={handleLogout}
-                      className="btn btn-error text-white font-bold text-[15px]"
-                      href={"/login"}
-                    >
-                      Logout
-                    </Link>
-                  </ul>
                 </div>
-              )}
-            </div>
-          ) : (
-            <div className="flex gap-5">
-              <Link
-                href={"/login"}
-                className="btn bg-purple-500 text-white font-bold text-[15px]"
-              >
-                Login
-              </Link>
-              <Link
-                href={"/signup"}
-                className="btn bg-purple-500 text-white font-bold text-[15px]"
-              >
-                Register
-              </Link>
-            </div>
-          )}
-        </div>
+                <Link
+                  onClick={handleLogout}
+                  className="btn btn-error text-white font-bold text-[15px] no-underline"
+                  href="/login"
+                >
+                  Logout
+                </Link>
+              </div>
+            ) : (
+              <div className="flex gap-5">
+                <Link
+                  href="/login"
+                  className="btn bg-purple-500 hover:bg-purple-600 border-none text-white font-bold text-[15px]"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/signup"
+                  className="btn bg-purple-500 hover:bg-purple-600 border-none text-white font-bold text-[15px]"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </nav>
   );
