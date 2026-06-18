@@ -30,42 +30,14 @@ const FEATURED_STARTUPS = [
   }
 ];
 
-export default function FeaturedStartupsPage() {
+export default function StartupsCards() {
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-8 sm:py-12 text-slate-100 font-sans bg-slate-950 space-y-10">
       
-      {/* HEADER SECTION */}
-      <div className="space-y-3 pb-8 border-b border-slate-900">
-        <div className="inline-flex items-center gap-1.5 text-[10px] font-mono text-indigo-400 bg-indigo-950/40 px-2.5 py-1 rounded-full border border-indigo-900/40">
-          <Sparkles size={10} className="animate-pulse" />
-          <span>Ecosystem Nodes Live</span>
-        </div>
-        
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight bg-gradient-to-r from-slate-100 via-slate-200 to-slate-400 bg-clip-text text-transparent">
-          Explore Featured Ventures
-        </h1>
-        
-        <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
-          Connect directly with sovereign engineering teams. Review transparent code dependency footprints, open-source stack indexes, and verified compensation metrics.
-        </p>
-      </div>
-
+    
       {/* INTERIOR CLUSTER GRID MAP AREA */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between pb-2">
-          <div className="flex items-center gap-2">
-            <div className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500" />
-            </div>
-            <h2 className="text-xs font-mono text-slate-400 uppercase tracking-wider">
-              Active Registry
-            </h2>
-          </div>
-          <span className="text-[10px] font-mono text-slate-500 bg-slate-900/60 px-2 py-0.5 rounded border border-slate-800">
-            Realtime Stream
-          </span>
-        </div>
+        
 
         {/* DYNAMIC CARD INJECTION CONTAINER */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -98,7 +70,7 @@ export default function FeaturedStartupsPage() {
                       </h3>
                       <div className="flex items-center gap-1.5 text-[10px] text-slate-500 font-mono">
                         <Layers size={10} className="text-slate-600" />
-                        <span className="truncate max-w-[180px]">{startup.industry || "General Industry"}</span>
+                        <span className="truncate max-w-45">{startup.industry || "General Industry"}</span>
                       </div>
                     </div>
                   </div>
@@ -115,7 +87,7 @@ export default function FeaturedStartupsPage() {
                     <User size={12} className="text-slate-600 shrink-0" />
                     <div className="flex flex-col truncate">
                       <span className="text-[9px] text-slate-600 leading-none uppercase">Founder</span>
-                      <span className="text-slate-300 font-medium truncate mt-0.5">{startup.founder_name || "Anonymous Founder"}</span>
+                      <span className="text-slate-300 font-medium truncate mt-0.5">{startup.founder_name }</span>
                     </div>
                   </div>
 
@@ -123,7 +95,7 @@ export default function FeaturedStartupsPage() {
                     <Users size={12} className="text-slate-600 shrink-0" />
                     <div className="flex flex-col truncate">
                       <span className="text-[9px] text-slate-600 leading-none uppercase">Seats Needed</span>
-                      <span className="text-slate-300 font-medium truncate mt-0.5">{startup.team_size_needed || "TBD"}</span>
+                      <span className="text-slate-300 font-medium truncate mt-0.5">{startup.team_size_needed }</span>
                     </div>
                   </div>
                 </div>

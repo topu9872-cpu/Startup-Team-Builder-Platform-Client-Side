@@ -1,9 +1,15 @@
-const StartupsPage = () => {
+import { lazy } from "@/lib/lazy";
+
+const StartupsCards = lazy(
+  () => import("@/MainComponents/StartupsCards/StartupsCards"),
+);
+
+const StatupsPage = () => {
   return (
     <div>
-        all products
+      <StartupsCards />
     </div>
   );
 };
 
-export default StartupsPage;
+export default StatupsPage;

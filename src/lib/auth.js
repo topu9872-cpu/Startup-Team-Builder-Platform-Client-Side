@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 
 const client = new MongoClient(process.env.MONGODB_URI);
-await client.connect();
+// await client.connect();
 const db = client.db("Startup-Team-Builder-Platform");
 
 export const auth = betterAuth({
