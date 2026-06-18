@@ -3,13 +3,31 @@ import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 
 const client = new MongoClient(process.env.MONGODB_URI);
-const db = client.db('Startup-Team-Builder-Platform');
+await client.connect();
+const db = client.db("Startup-Team-Builder-Platform");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
     // Optional: if you don't provide a client, database transactions won't be enabled.
     client,
   }),
+  user: {
+   additionalFields: {
+      role: {
+        required:false,
+        type: "string",
+        defaultValue: "collaborator",
+      },
+      plan: {
+        type: "string",
+        defaultValue: "collaborator_free",
+      },
+      isBlock: {
+        type: "boolean",
+        defaultValue: false,
+      },
+    },
+  },
   emailAndPassword: {
     enabled: true,
   },

@@ -8,12 +8,13 @@ import Link from "next/link";
 import { uploadImage } from "@/lib/image";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Signup() {
   const [toggle, setToggle] = useState(false);
   const [focused, setFocused] = useState("");
   const [image, setImage] = useState("");
+  const [role, setRole] = useState("collaborator");
   // Added state to hold values so inputs don't bug out or become invisible
 
   const handleFocus = (field) => setFocused(field);
@@ -34,10 +35,11 @@ export default function Signup() {
     visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
   };
   const router = useRouter();
-
+  const searchParam = useSearchParams();
+  const redirectTo = searchParam.get("redirect") || "/";
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const plan = role === "collaborator" ? "collaborator_free" : "founder_free";
     const formData = Object.fromEntries(new FormData(e.target));
 
     const imageUrl = await uploadImage(image);
@@ -46,23 +48,40 @@ export default function Signup() {
       email: formData.email,
       password: formData.password,
       name: formData.name,
+      role: role,
       image: imageUrl,
+      isBlock: false,
+      plan: plan,
     });
 
     if (data) {
       toast.success("Login Successful !");
-      router.push("/login");
+      router.push(redirectTo);
     }
     if (error) {
       toast.error(error.message || "Signup failed");
       return;
     }
   };
+
+  const handleGoogleSignup = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+  };
+  const handleGitHubSignup = async () => {
+    await authClient.signIn.social({
+      provider: "github",
+      callbackURL: "/",
+    });
+  };
+
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-slate-950 overflow-hidden font-sans">
       {/* Animated Background Ambient Glows */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse delay-700 pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl animate-pulse delay-700 " />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl animate-pulse " />
 
       {/* Signup Card */}
       <motion.div
@@ -158,14 +177,39 @@ export default function Signup() {
               {toggle ? <Eye size={18} /> : <EyeClosed size={18} />}
             </button>
           </motion.div>
+          <motion.div
+            variants={itemVariants}
+            className="relative space-y-2 flex gap-5"
+          >
+            <label className="flex items-center gap-2">
+              <input
+                onChange={(e) => setRole(e.target.value)}
+                checked={role === "collaborator"}
+                type="radio"
+                value="collaborator"
+                className="w-4 h-4"
+              />
+              Collaborator
+            </label>
 
+            <label className="flex items-center gap-2">
+              <input
+                onChange={(e) => setRole(e.target.value)}
+                checked={role === "founder"}
+                type="radio"
+                value="founder"
+                className="w-4 h-4"
+              />
+              Founder
+            </label>
+          </motion.div>
           {/* Submit Button */}
           <motion.button
             variants={itemVariants}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             type="submit"
-            className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-linear-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-medium rounded-lg shadow-lg shadow-indigo-500/20 transition-all duration-200 group"
+            className="w-full flex z-20 items-center justify-center gap-2 py-3 px-4 bg-linear-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-medium rounded-lg shadow-lg shadow-indigo-500/20 transition-all duration-200 group"
           >
             Sign Up
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
@@ -187,6 +231,7 @@ export default function Signup() {
         {/* Social Authentication Buttons */}
         <motion.div variants={itemVariants} className="grid grid-cols-2 gap-4">
           <button
+            onClick={handleGoogleSignup}
             type="button"
             className="flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-950/40 border border-slate-800 rounded-lg text-slate-300 hover:bg-slate-800/50 transition-colors duration-200"
           >
@@ -212,6 +257,7 @@ export default function Signup() {
           </button>
 
           <button
+            onClick={handleGitHubSignup}
             type="button"
             className="flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-950/40 border border-slate-800 rounded-lg text-slate-300 hover:bg-slate-800/50 transition-colors duration-200"
           >
@@ -225,9 +271,9 @@ export default function Signup() {
           variants={itemVariants}
           className="text-center text-sm text-slate-500 mt-8"
         >
-          Already have an account?{" "}
+          Already have an account?
           <Link
-            href="/login"
+            href={`/login?redirecto=${redirectTo}`}
             className="text-indigo-400 hover:underline hover:text-indigo-300 transition-colors"
           >
             Sign In

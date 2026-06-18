@@ -7,13 +7,14 @@ import { FaGithub } from "react-icons/fa";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Login() {
   const [focused, setFocused] = useState("");
   const [toggle, setToggle] = useState(false);
   const handleFocus = (field) => setFocused(field);
   const handleBlur = () => setFocused("");
-
+  const router = useRouter();
   // Framer Motion Animation variants
   const containerVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -43,6 +44,9 @@ export default function Login() {
     }),
   };
 
+  const searchParam = useSearchParams();
+  const redirectTo = searchParam.get("redirect") || "/";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -51,16 +55,28 @@ export default function Login() {
     const { data, error } = await authClient.signIn.email({
       email: formData.email,
       password: formData.password,
-      callbackURL: "/",
     });
 
     if (data) {
+      router.push(redirectTo);
       toast.success("Account Created Successfully !");
     } else if (error) {
       toast.error("Something want !");
     }
   };
 
+  const handleGoogleSignup = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+  };
+  const handleGitHubSignup = async () => {
+    await authClient.signIn.social({
+      provider: "github",
+      callbackURL: "/",
+    });
+  };
   return (
     <div className="relative min-h-screen flex items-center justify-center bg-slate-950 overflow-hidden font-sans">
       {/* Framer-animated Background Ambient Glows */}
@@ -212,6 +228,7 @@ export default function Login() {
         <motion.div variants={itemVariants} className="grid grid-cols-2 gap-4">
           {/* Google Button */}
           <motion.button
+            onClick={handleGoogleSignup}
             whileHover={{
               scale: 1.03,
               backgroundColor: "rgba(30, 41, 59, 0.5)",
@@ -243,6 +260,7 @@ export default function Login() {
 
           {/* GitHub Button */}
           <motion.button
+            onClick={handleGitHubSignup}
             whileHover={{
               scale: 1.03,
               backgroundColor: "rgba(30, 41, 59, 0.5)",
@@ -263,7 +281,7 @@ export default function Login() {
         >
           Don't have an account yet?{" "}
           <Link
-            href="/signup"
+            href={`/signup?redirect=${redirectTo}`}
             className="text-purple-400 underline decoration-purple-400/30 hover:decoration-purple-300"
           >
             Sign Up
