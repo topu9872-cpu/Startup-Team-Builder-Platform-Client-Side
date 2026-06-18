@@ -129,7 +129,7 @@ const NavBar = () => {
                 href={"/signup"}
                 className="btn bg-purple-500 text-white font-bold text-[15px]"
               >
-                Signup
+                Register
               </Link>
             </div>
           )}

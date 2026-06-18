@@ -26,7 +26,7 @@ export default function HeroBanner() {
   };
 
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center bg-slate-950 overflow-hidden font-sans px-4 sm:px-6 lg:px-8">
+    <section className="relative min-h-[70vh] pt-10 flex items-center justify-center bg-slate-950 overflow-hidden font-sans px-4 sm:px-6 lg:px-8">
       {/* Background Ambient Glows */}
       <motion.div 
         animate={{ x: [0, 15, 0], y: [0, -15, 0] }}

@@ -284,7 +284,7 @@ export default function Login() {
             href={`/signup?redirect=${redirectTo}`}
             className="text-purple-400 underline decoration-purple-400/30 hover:decoration-purple-300"
           >
-            Sign Up
+            Register
           </Link>
         </motion.p>
       </motion.div>

@@ -211,7 +211,7 @@ export default function Signup() {
             type="submit"
             className="w-full flex z-20 items-center justify-center gap-2 py-3 px-4 bg-linear-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-medium rounded-lg shadow-lg shadow-indigo-500/20 transition-all duration-200 group"
           >
-            Sign Up
+            Register
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
           </motion.button>
         </form>
