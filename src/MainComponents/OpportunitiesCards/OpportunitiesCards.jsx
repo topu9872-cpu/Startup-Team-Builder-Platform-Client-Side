@@ -32,7 +32,7 @@ const OpportunitiesCards = ({ opportunities }) => {
     requiredSkills,
     roleTitle,
     startupName,
-    workType,
+    workType
   } = opportunities;
 
   return (

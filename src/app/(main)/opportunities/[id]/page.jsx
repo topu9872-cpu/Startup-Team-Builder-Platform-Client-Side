@@ -9,6 +9,7 @@ import {
   FaExternalLinkAlt,
 } from "react-icons/fa"; // Standard react-icons/fa import
 import { getOpportunitiesDetails } from "@/api/serverMutation";
+import Link from "next/link";
 
 const OpportunitiesDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -25,6 +26,7 @@ const OpportunitiesDetailsPage = async ({ params }) => {
     startupName,
     workEnvironmentAllocation,
     workType,
+    _id
   } = OpportunitiesDetailsData;
 
   const formattedDeadline = applicationDeadline
@@ -64,10 +66,10 @@ const OpportunitiesDetailsPage = async ({ params }) => {
 
           {/* THE ONLY APPLY NOW BUTTON */}
           <div className="w-full md:w-auto shrink-0">
-            <button className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-bold tracking-wide rounded-xl transition-all duration-200 shadow-lg shadow-purple-950/50 hover:-translate-y-0.5 group">
+            <Link href={`/opportunities/${_id}/application`} className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-bold tracking-wide rounded-xl transition-all duration-200 shadow-lg shadow-purple-950/50 hover:-translate-y-0.5 group">
               Apply Now
               <FaExternalLinkAlt className="text-xs transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </button>
+            </Link>
           </div>
         </div>
 

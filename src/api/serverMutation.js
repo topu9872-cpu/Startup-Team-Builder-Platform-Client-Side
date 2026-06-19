@@ -1,4 +1,4 @@
-import { getData } from "./server";
+import { getData, postData } from "./server";
 // get startups data
 export const getStartups = async () => {
   return getData("/startups");
@@ -12,7 +12,7 @@ export const getOpportunities = async ({
   page = 1,
   ecosystemSegment = "",
   workType = "",
-}={}) => {
+} = {}) => {
   const query = new URLSearchParams();
 
   query.set("page", String(page));
@@ -22,12 +22,30 @@ export const getOpportunities = async ({
   if (ecosystemSegment) query.set("ecosystemSegment", ecosystemSegment);
   if (workType) query.set("workType", workType);
 
-  console.log("FINAL QUERY:", query.toString());
-
   return getData(`/opportunities?${query.toString()}`);
 };
 
-// get  opportunities details data
+/**
+ * ! get  opportunities details data
+ *  */
 export const getOpportunitiesDetails = async (id) => {
   return getData(`/opportunities/${id}`);
+};
+
+/**
+ * ! get opportunities all data
+ */
+export const getOpportunitiesAllData = async () => {
+  return getData("/Opportunities-all-data");
+};
+
+/**
+ *  ! get plan data
+ */
+export const getPlanData = async () => {
+  return getData("/plan");
+};
+
+export const postApply = (query) => {
+  return postData("/application", query);
 };

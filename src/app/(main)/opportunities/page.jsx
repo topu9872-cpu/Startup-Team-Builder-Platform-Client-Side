@@ -28,7 +28,6 @@ const OpportunitiesPage = async ({ searchParams }) => {
   });
   const totalPages = opportunitiesData.totalPages || 1;
 
-  console.log(totalPages);
   return (
     <div>
       <StartupSearchBar />
