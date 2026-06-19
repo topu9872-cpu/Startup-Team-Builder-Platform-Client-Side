@@ -1,7 +1,8 @@
 import Image from "next/image";
-import { ProfileEditModal } from "../ProfileEditModal/ProfileEditModal";
+import { ProfileEditModalCollaborator } from "../ProfileEditModal/ProfileEditModal";
 
-export default function ProfileCardFounder() {
+
+export default function ProfileCardCollbarator() {
   return (
      <div className="flex items-center justify-center min-h-screen">
       <div className="card bg-base-100 shadow-xl p-6 w-full max-w-md">
@@ -35,7 +36,7 @@ export default function ProfileCardFounder() {
 
         {/* Edit Button */}
         <div className="flex justify-center mt-5">
-          <ProfileEditModal/>
+         <ProfileEditModalCollaborator/>
         </div>
 
       </div>
