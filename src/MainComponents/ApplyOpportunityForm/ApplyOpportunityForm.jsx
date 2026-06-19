@@ -8,20 +8,16 @@ import {
   MessageSquare,
   ArrowRight,
   ShieldAlert,
-  Sparkles,
-  CheckCircle2,
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { postApply } from "@/api/serverMutation";
 
-export default function ApplyOpportunityForm({ id, user, data, plan }) {
+export default function ApplyOpportunityForm({ id, user, data }) {
   const router = useRouter();
 
   const [focused, setFocused] = useState("");
   const [loading, setLoading] = useState(false);
-  const [applyCount, setApplyCount] = useState(0);
 
   const handleFocus = (field) => setFocused(field);
   const handleBlur = () => setFocused("");
@@ -35,7 +31,7 @@ export default function ApplyOpportunityForm({ id, user, data, plan }) {
       portfolioLink: formData.portfolio,
       motivationMessage: formData.motivation,
       status: "pending",
-      appliedDate: new Intl.DateTimeFormat("en-GB").format(new Date()),
+      appliedDate: new Date().toLocaleDateString("en-GB"),
       satartupName: data.startupName,
       opportunityName: data.opportunityName || "opportunityName",
       userid: user?.id,
@@ -50,8 +46,8 @@ export default function ApplyOpportunityForm({ id, user, data, plan }) {
       return;
     }
 
-    setApplyCount((prev) => prev + 1);
     if (dataPost) {
+      window.location.reload()
       toast.success("Successfully submitted!");
     } else {
       toast.error("Somthing Want !");
@@ -60,7 +56,7 @@ export default function ApplyOpportunityForm({ id, user, data, plan }) {
     setLoading(false);
   };
 
-  if (user?.role !== "admin") {
+  if (user?.role !== "collaborator") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4">
         <div className="w-full max-w-md p-6 rounded-2xl border border-rose-500/20 bg-slate-900/80 backdrop-blur-xl shadow-2xl text-center">
