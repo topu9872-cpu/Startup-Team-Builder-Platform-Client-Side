@@ -1,7 +1,11 @@
+import { lazy } from "@/lib/lazy";
+
+const ManageStartups=lazy(()=>import("@/DashboardComponents/Admin/ManageStartups/ManageStartups"));
+
 const ManageStartupsPage = () => {
   return (
     <div>
-        ManageStartupsPage 
+      <ManageStartups/>
     </div>
   );
 };

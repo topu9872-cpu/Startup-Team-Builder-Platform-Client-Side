@@ -1,14 +1,15 @@
+i
 import { lazy } from "@/lib/lazy";
 
-const ProfileCardCollbarator = lazy(
+const ProfileCard = lazy(
   () =>
-    import("@/DashboardComponents/Collaborator/ProfileCardCollaborator/ProfileCardCollaborator"),
+    import( "@/DashboardComponents/ProfileCard/ProfileCard"),
 );
 
 const CollaboratorProfilePage = () => {
   return (
     <div>
-      <ProfileCardCollbarator />
+      <ProfileCard />
     </div>
   );
 };

@@ -1,14 +1,13 @@
 import { lazy } from "@/lib/lazy";
 
-const ProfileCardFounder = lazy(
-  () =>
-    import("@/DashboardComponents/Founder/ProfileCardFounder/ProfileCardFounder"),
+const ProfileCard = lazy(
+  () => import("@/DashboardComponents/ProfileCard/ProfileCard"),
 );
 
 const FounderProfilePage = () => {
   return (
     <div>
-      <ProfileCardFounder />
+      <ProfileCard />
     </div>
   );
 };

@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { ProfileEditModalCollaborator } from "../ProfileEditModal/ProfileEditModal";
+import { ProfileEditModalCollaborator } from "./ProfileEditModal/ProfileEditModal";
 
 
-export default function ProfileCardCollbarator() {
+export default function ProfileCard() {
   return (
      <div className="flex items-center justify-center min-h-screen">
       <div className="card bg-base-100 shadow-xl p-6 w-full max-w-md">

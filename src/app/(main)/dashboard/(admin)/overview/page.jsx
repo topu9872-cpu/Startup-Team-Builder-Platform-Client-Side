@@ -1,7 +1,11 @@
+import { lazy } from "@/lib/lazy";
+
+const AdminDashboard= lazy(()=>import("@/DashboardComponents/Admin/AdminDashboard/AdminDashboard")) ;
+
 const OverviewPage = () => {
   return (
-    <div className="text-center h-screen ">
-        overview
+    <div className="text-center ">
+      <AdminDashboard/>
     </div>
   );
 };
