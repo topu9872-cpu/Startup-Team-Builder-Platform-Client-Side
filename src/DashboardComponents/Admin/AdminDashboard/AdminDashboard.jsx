@@ -169,7 +169,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Composed Chart Arena */}
-        <div className="h-[340px] w-full text-xs">
+        <div className="h-85 w-full text-xs">
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart data={chartData} margin={{ top: 10, right: -10, left: -25, bottom: 0 }}>
               <defs>

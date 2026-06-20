@@ -121,7 +121,7 @@ export default function ManageStartups() {
                           </button>
                         ) : (
                           // Uniform Spacer placeholder keeping grid width absolute
-                          <div className="h-7 w-[82px]" />
+                          <div className="h-7 w-20" />
                         )}
 
                         {/* Remove Destructive Trigger */}

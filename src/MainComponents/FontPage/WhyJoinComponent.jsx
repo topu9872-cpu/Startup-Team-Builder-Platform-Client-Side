@@ -52,7 +52,7 @@ const VALUE_PROPS = [
 
 export const WhyJoinComponent = ({ onNavigate }) => {
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 py-8 space-y-10 text-slate-100 bg-slate-950">
+    <div className="w-11/12 mx-auto px-4 py-8 space-y-10 text-slate-100 bg-slate-950">
 
       {/* HEADER */}
       <div className="space-y-3 pb-6 border-b border-slate-900">

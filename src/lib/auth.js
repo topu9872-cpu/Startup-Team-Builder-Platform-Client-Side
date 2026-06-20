@@ -25,6 +25,14 @@ export const auth = betterAuth({
         type: "boolean",
         defaultValue: false,
       },
+       bio: {
+        type: "string",
+        required: false,
+      },
+      skills: {
+        type: "string",
+        required: false,
+      },
     },
   },
   emailAndPassword: {

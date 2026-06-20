@@ -56,7 +56,7 @@ const METRICS_TABLE = [
 
 export const SuccessStoriesComponent = () => {
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8 space-y-12 text-slate-100 font-sans antialiased bg-slate-950">
+    <div className="w-11/12 mx-auto px-4 py-8 sm:px-6 sm:py-12 lg:px-8 space-y-12 text-slate-100 font-sans antialiased bg-slate-950">
       
       {/* SECTION HEADER */}
       <div className="space-y-3 pb-6 border-b border-slate-900">

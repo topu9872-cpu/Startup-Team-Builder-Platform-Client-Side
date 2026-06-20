@@ -1,12 +1,15 @@
 
 import { lazy } from "@/lib/lazy";
+import { handleUser } from "@/lib/user";
 
 const ProfileCard=lazy(()=>import("@/DashboardComponents/ProfileCard/ProfileCard")) ;
 
-const AdminProfilePage = () => {
+const AdminProfilePage = async() => {
+  const user=await handleUser()
+  console.log(user)
   return (
     <div>
-       <ProfileCard/>
+       <ProfileCard user={user}/>
     </div>
   );
 };

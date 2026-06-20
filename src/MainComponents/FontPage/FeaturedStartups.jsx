@@ -12,7 +12,7 @@ export default async function FeaturedStartupsPage() {
     const startupsData = await getStartups();
   
   return (
-    <div className=" px-16  mx-auto  py-16 text-slate-100 font-sans bg-slate-950 space-y-10">
+    <div className=" px-16 mx-auto  py-16 text-slate-100 font-sans bg-slate-950 space-y-10">
       
       {/* HEADER SECTION */}
       <div className="space-y-3 pb-8 border-b border-slate-900">

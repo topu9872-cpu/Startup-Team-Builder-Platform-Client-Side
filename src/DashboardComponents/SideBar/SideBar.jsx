@@ -21,66 +21,84 @@ import { CgProfile } from "react-icons/cg";
 import { FaRegLightbulb } from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
 
- 
-
- 
 export default function Sidebar() {
-  const {
-    data: session,
-    isPending, 
-    error, 
-    refetch, 
-  } = authClient.useSession();
+  const { data: session } = authClient.useSession();
 
-   const user = session?.user;
+  const user = session?.user;
 
-console.log(user)
-const AdminNavMenu = [
-  { label: "Overview", href: "/dashboard/overview", icon: LayoutDashboard },
-  { label: "Manage Users", href: "/dashboard/manage-users", icon: Briefcase },
-  { label: "Manage Startups", href: "/dashboard/manage-startups", icon: Landmark },
-  {
-    label: "View Transactions",
-    href: "/dashboard/view-transactions",
-    icon: TbTransactionDollar,
-  },
-  {
-    label: "Moderate Activities",
-    href: "/dashboard/moderate-activities",
-    icon: SquareActivity,
-  },
-   { label: "Profile", href: "/dashboard/adminprofile", icon: CgProfile },
-];
+  const AdminNavMenu = [
+    { label: "Overview", href: "/dashboard/overview", icon: LayoutDashboard },
+    { label: "Manage Users", href: "/dashboard/manage-users", icon: TbUsersGroup },
+    {
+      label: "Manage Startups",
+      href: "/dashboard/manage-startups",
+      icon: Landmark,
+    },
+    {
+      label: "View Transactions",
+      href: "/dashboard/view-transactions",
+      icon: TbTransactionDollar,
+    },
+    
+    { label: "Profile", href: "/dashboard/adminprofile", icon: CgProfile },
+  ];
 
-const FounderNavMenu = [
-  { label: "Overview", href: "/dashboard/founder-overview", icon: LayoutDashboard },
-  { label: "My Startup", href: "/dashboard/founder-my-startup", icon: Briefcase },
-  { label: "Add Opportunity", href: "/dashboard/founder-add-opportunity", icon: FaRegLightbulb },
-  { label: "Applications", href: "/dashboard/founder-applications", icon: TbUsersGroup },
-  {
-    label: "Manage Opportunities",
-    href: "/dashboard/founder-manage-opportunities",
-    icon: Settings,
-  },
-   { label: "Profile", href: "/dashboard/founderprofile", icon: CgProfile },
-];
+  const FounderNavMenu = [
+    {
+      label: "Overview",
+      href: "/dashboard/founder-overview",
+      icon: LayoutDashboard,
+    },
+    {
+      label: "My Startup",
+      href: "/dashboard/founder-my-startup",
+      icon: Briefcase,
+    },
+    {
+      label: "Add Opportunity",
+      href: "/dashboard/founder-add-opportunity",
+      icon: FaRegLightbulb,
+    },
+    {
+      label: "Applications",
+      href: "/dashboard/founder-applications",
+      icon: TbUsersGroup,
+    },
+    {
+      label: "Manage Opportunities",
+      href: "/dashboard/founder-manage-opportunities",
+      icon: Settings,
+    },
+    { label: "Profile", href: "/dashboard/founderprofile", icon: CgProfile },
+  ];
 
-const CollaboratorNavMenu = [
-  { label: "Overview", href: "/dashboard/collaboratoroverview", icon: LayoutDashboard },
-  { label: "My Applications", href: "/dashboard/collaboratormy-applications", icon: Dock },
-  { label: "Profile", href: "/dashboard/collaboratorprofile", icon: CgProfile },
-];
+  const CollaboratorNavMenu = [
+    {
+      label: "Overview",
+      href: "/dashboard/collaboratoroverview",
+      icon: LayoutDashboard,
+    },
+    {
+      label: "My Applications",
+      href: "/dashboard/collaboratormy-applications",
+      icon: Dock,
+    },
+    {
+      label: "Profile",
+      href: "/dashboard/collaboratorprofile",
+      icon: CgProfile,
+    },
+  ];
 
-const menus = {
-  admin: AdminNavMenu,
-  founder: FounderNavMenu,
-  collaborator: CollaboratorNavMenu,
-};
-const role=user?.role.toLowerCase();
-console.log(role,'role')
-// const role = "collaborator";
-const activeMenu = menus?.[role] ?? [];
-console.log(user,'user')
+  const menus = {
+    admin: AdminNavMenu,
+    founder: FounderNavMenu,
+    collaborator: CollaboratorNavMenu,
+  };
+  const role = user?.role.toLowerCase();
+
+  // const role = "collaborator";
+  const activeMenu = menus?.[role] ?? [];
 
   const [isOpen, setIsOpen] = useState(false);
   // Replace this role state with your actual global auth/context role parameter

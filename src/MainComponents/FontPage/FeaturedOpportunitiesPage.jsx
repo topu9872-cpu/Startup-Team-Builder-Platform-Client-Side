@@ -18,7 +18,7 @@ export default function FeaturedOpportunitiesPage() {
   }, []);
 
   return (
-    <div className="w-full max-w-5xl mx-auto px-4 py-8 sm:py-12 text-slate-100 font-sans bg-slate-950 space-y-10">
+    <div className="w-11/12 mx-auto px-4 py-8 sm:py-12 text-slate-100 font-sans bg-slate-950 space-y-10">
       {/* 1. TOP TITLE / HERO HEADER */}
       <motion.div
         initial={{ opacity: 0, y: -8 }}
