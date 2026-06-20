@@ -33,7 +33,7 @@ export default function ApplyOpportunityForm({ id, user, data }) {
       status: "pending",
       appliedDate: new Date().toLocaleDateString("en-GB"),
       satartupName: data.startupName,
-      opportunityName: data.opportunityName || "opportunityName",
+      roleTitle: data.roleTitle || "No opportunityName",
       userid: user?.id,
     };
     const dataPost = await postApply(query);
@@ -47,7 +47,7 @@ export default function ApplyOpportunityForm({ id, user, data }) {
     }
 
     if (dataPost) {
-      window.location.reload()
+      window.location.reload();
       toast.success("Successfully submitted!");
     } else {
       toast.error("Somthing Want !");

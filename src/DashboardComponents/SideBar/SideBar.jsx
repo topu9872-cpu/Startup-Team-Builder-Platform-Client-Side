@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { TbTransactionDollar, TbUsersGroup } from "react-icons/tb";
 import { CgProfile } from "react-icons/cg";
-import { FaRegLightbulb } from "react-icons/fa";
+import { FaRegLightbulb ,FaRegArrowAltCircleLeft} from "react-icons/fa";
 import { authClient } from "@/lib/auth-client";
 
 export default function Sidebar() {
@@ -82,6 +82,11 @@ export default function Sidebar() {
       label: "My Applications",
       href: "/dashboard/collaboratormy-applications",
       icon: Dock,
+    },
+    {
+      label: "Apply to Opportunity",
+      href: "/opportunities",
+      icon: FaRegArrowAltCircleLeft,
     },
     {
       label: "Profile",

@@ -9,9 +9,6 @@ export default function StartupForm() {
   const [editingId, setEditingId] = useState(null);
   const fileInputRef = useRef(null);
 
-  const CREATION_LIMIT = 1;
-  const isLimitReached = companies.length >= CREATION_LIMIT;
-
   const [formData, setFormData] = useState({
     name: "", founderName: "", industry: "", logo: "",
     fundingStage: "", founderEmail: "", teamSizeNeeded: "", description: ""
@@ -50,7 +47,6 @@ export default function StartupForm() {
     if (viewMode === "edit") {
       setCompanies(p => p.map(item => item.id === editingId ? { ...item, ...formData } : item));
     } else {
-      if (isLimitReached) return;
       setCompanies(p => [{ ...formData, id: Date.now().toString(), status: "pending" }, ...p]);
     }
     resetForm();
@@ -62,23 +58,15 @@ export default function StartupForm() {
   return (
     <div className="max-w-6xl mx-auto my-4 md:my-8 p-4 md:p-6 rounded-xl border border-current/20 text-current text-sm">
       
-      {/* Banner Limit Alert */}
-      {viewMode === "table" && companies.length > 0 && (
-        <div className={`mb-6 p-4 rounded-xl border flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 ${isLimitReached ? "border-purple-500/40 bg-purple-950/10 text-purple-200" : "border-current/10 bg-current/5"}`}>
-          <div>
-            <h4 className="font-semibold">{companies.length} of {CREATION_LIMIT} slots used {isLimitReached ? "👑" : "🚀"}</h4>
-            <p className="text-xs opacity-70 mt-0.5">{isLimitReached ? "Maximum free listing limit reached. Upgrade for unlimited registrations." : "You can add more startup profiles on your current plan."}</p>
-          </div>
-          {isLimitReached && (
-            <Link href="/plan" className="w-full sm:w-auto px-4 py-2 text-center bg-linear-to-r from-purple-600 to-indigo-600 text-white text-xs font-semibold rounded-lg shadow-md transition active:scale-95">Upgrade Plan</Link>
-          )}
-        </div>
-      )}
-
       {/* Dynamic Header */}
       <div className="flex justify-between items-center mb-6 border-b border-current/10 pb-4">
-        <h2 className="text-lg md:text-xl font-bold tracking-tight">{viewMode === "table" ? "Startup Directory" : viewMode === "create" ? "Register Startup" : "Update Startup"}</h2>
-        <button onClick={() => viewMode === "table" ? (!isLimitReached && setViewMode("create")) : resetForm()} disabled={viewMode === "table" && isLimitReached} className="px-4 py-2 bg-purple-600 hover:bg-purple-700 disabled:bg-current/5 disabled:text-current/30 text-white text-xs font-medium rounded-lg transition disabled:cursor-not-allowed">
+        <h2 className="text-lg md:text-xl font-bold tracking-tight">
+          {viewMode === "table" ? "Startup Directory" : viewMode === "create" ? "Register Startup" : "Update Startup"}
+        </h2>
+        <button 
+          onClick={() => viewMode === "table" ? setViewMode("create") : resetForm()} 
+          className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-medium rounded-lg transition"
+        >
           {viewMode === "table" ? "+ New Startup" : "← Back"}
         </button>
       </div>

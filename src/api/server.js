@@ -1,11 +1,11 @@
 'use server'
-import { headers } from "next/headers";
+
 
 const BASE_URL = process.env.NEXT_PUBLIC_URI;
 
-export const getData = async (path) => {
+export const getData = async (path,userId) => {
   try {
-    const res = await fetch(`${BASE_URL}${path}`);
+    const res = await fetch(`${BASE_URL}${path}?userId=${userId}`);
 
     if (!res.ok) throw new Error("Failed to fatch get data");
     return res.json();

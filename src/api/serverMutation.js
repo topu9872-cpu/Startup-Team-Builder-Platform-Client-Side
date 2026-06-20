@@ -46,6 +46,30 @@ export const getPlanData = async () => {
   return getData("/plan");
 };
 
+/**
+ * ! Collaborator can apply post
+ */
 export const postApply = (query) => {
   return postData("/application", query);
+};
+
+/**
+ * ! collaborator application data
+ */
+export const CollaboratorApplyData = (userId) => {
+  return getData("/application", userId);
+};
+
+/**
+ * ! Collaborator can apply post
+ */
+export const Opportunities = (query) => {
+  return postData("/opportunities", query);
+};
+
+/**
+ * ! founder opportunities data
+ */
+export const founderOpportunities = (userId) => {
+  return getData("/founder-opportunities", userId);
 };
