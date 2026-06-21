@@ -73,3 +73,9 @@ export const Opportunities = (query) => {
 export const founderOpportunities = (userId) => {
   return getData("/founder-opportunities", userId);
 };
+/**
+ * ! founder opportunities data
+ */
+export const founderSubcriptions= (userId) => {
+  return postData("/subcriptions", userId);
+};

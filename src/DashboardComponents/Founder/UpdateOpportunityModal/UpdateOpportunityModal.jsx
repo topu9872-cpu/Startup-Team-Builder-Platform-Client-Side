@@ -53,7 +53,7 @@ export default function UpdateOpportunityModal({ initialData }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Updated Data Array:", formData);
+    
   };
 
   // Section Blueprint Mapping (All 11 text/select parameters systematically tracked)

@@ -7,7 +7,9 @@ import {
   FaTag,
   FaBuilding,
   FaExternalLinkAlt,
-} from "react-icons/fa"; // Standard react-icons/fa import
+  FaClock,
+  FaServer,
+} from "react-icons/fa"; 
 import { getOpportunitiesDetails } from "@/api/serverMutation";
 import Link from "next/link";
 
@@ -15,9 +17,10 @@ const OpportunitiesDetailsPage = async ({ params }) => {
   const { id } = await params;
   const OpportunitiesDetailsData = await getOpportunitiesDetails(id);
 
+  // Destructured to perfectly match your creation payload fields
   const {
     applicationDeadline,
-    compBand,
+    compensation, // Matched with payload
     description,
     ecosystemSegment,
     requiredSkills,
@@ -26,7 +29,9 @@ const OpportunitiesDetailsPage = async ({ params }) => {
     startupName,
     workEnvironmentAllocation,
     workType,
-    _id
+    commitmentLevel, // Integrated
+    corePulseBackendSystems, // Integrated
+    _id,
   } = OpportunitiesDetailsData;
 
   const formattedDeadline = applicationDeadline
@@ -45,15 +50,15 @@ const OpportunitiesDetailsPage = async ({ params }) => {
           <div className="space-y-4 max-w-2xl">
             <div className="flex flex-wrap items-center gap-3">
               <span className="flex items-center gap-1.5 text-xs font-bold tracking-wider uppercase text-purple-400 bg-purple-950/40 border border-purple-900/60 px-3 py-1 rounded-md">
-                <FaBuilding className="text-[10px]" /> {startupName}
+                <FaBuilding className="text-[10px]" /> {startupName || "Startup"}
               </span>
               <span className="text-xs font-semibold tracking-wider uppercase text-zinc-500 bg-zinc-900 px-3 py-1 rounded-md border border-zinc-800">
-                {sector}
+                {sector || "Sector"}
               </span>
             </div>
 
             <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
-              {roleTitle}
+              {roleTitle || "Untitled Role"}
             </h1>
 
             <p className="text-sm font-medium tracking-wide text-zinc-500 uppercase">
@@ -66,7 +71,10 @@ const OpportunitiesDetailsPage = async ({ params }) => {
 
           {/* THE ONLY APPLY NOW BUTTON */}
           <div className="w-full md:w-auto shrink-0">
-            <Link href={`/opportunities/${_id}/application`} className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-bold tracking-wide rounded-xl transition-all duration-200 shadow-lg shadow-purple-950/50 hover:-translate-y-0.5 group">
+            <Link 
+              href={`/opportunities/${_id}/application`} 
+              className="w-full md:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 bg-purple-600 hover:bg-purple-500 text-white font-bold tracking-wide rounded-xl transition-all duration-200 shadow-lg shadow-purple-950/50 hover:-translate-y-0.5 group"
+            >
               Apply Now
               <FaExternalLinkAlt className="text-xs transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
@@ -74,7 +82,8 @@ const OpportunitiesDetailsPage = async ({ params }) => {
         </div>
 
         {/* ================= MODULAR CORE INFORMATION ================= */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* Upgraded grid to 3 columns on mobile / 6 columns on desktop to host the 6 core traits */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
           {[
             {
               icon: <FaCalendarAlt />,
@@ -84,14 +93,28 @@ const OpportunitiesDetailsPage = async ({ params }) => {
             {
               icon: <FaMoneyBillWave />,
               label: "Compensation",
-              value: compBand,
+              value: compensation,
             },
             {
               icon: <FaMapMarkerAlt />,
               label: "Environment",
               value: workEnvironmentAllocation,
             },
-            { icon: <FaBriefcase />, label: "Job Type", value: workType },
+            { 
+              icon: <FaBriefcase />, 
+              label: "Job Type", 
+              value: workType 
+            },
+            { 
+              icon: <FaClock />, 
+              label: "Commitment", 
+              value: commitmentLevel 
+            },
+            { 
+              icon: <FaServer />, 
+              label: "Backend Core", 
+              value: corePulseBackendSystems 
+            },
           ].map((item, idx) => (
             <div
               key={idx}
@@ -102,7 +125,7 @@ const OpportunitiesDetailsPage = async ({ params }) => {
                 <p className="text-[10px] text-zinc-600 font-bold uppercase tracking-widest">
                   {item.label}
                 </p>
-                <p className="text-sm font-bold text-zinc-200 mt-0.5 truncate">
+                <p className="text-sm font-bold text-zinc-200 mt-0.5 truncate" title={item.value || "Not Specified"}>
                   {item.value || "Not Specified"}
                 </p>
               </div>
@@ -118,8 +141,7 @@ const OpportunitiesDetailsPage = async ({ params }) => {
               Overview
             </h2>
             <div className="text-zinc-400 text-base leading-relaxed space-y-4 whitespace-pre-line font-light">
-              {description ||
-                "No job description has been provided for this opening."}
+              {description || "No job description has been provided for this opening."}
             </div>
           </div>
 

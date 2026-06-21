@@ -76,7 +76,7 @@ export default function PricingPlansGrid({
 
   const handleCheckout = async (plan) => {
     if (!user?.id || !user?.email) {
-      console.log("User not ready yet");
+      
       return;
     }
     const res = await fetch("/api/checkout_sessions", {
@@ -186,7 +186,7 @@ export default function PricingPlansGrid({
                   <button
                     disabled={!user}
                     onClick={() => handleCheckout(plan)}
-                    className={`w-full py-2 cursor-pointer text-xs font-semibold rounded-lg transition-all text-center ${plan.buttonStyles}`}
+                    className={`w-full py-2 cursor-pointer focus:scale-95 text-xs font-semibold rounded-lg transition-all text-center ${plan.buttonStyles}`}
                   >
                     Upgrade to {plan.name}
                   </button>

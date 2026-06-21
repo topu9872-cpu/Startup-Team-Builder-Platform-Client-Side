@@ -1,11 +1,14 @@
-export default function PaymentSuccess({ searchParams }) {
-  const sessionId = searchParams?.session_id;
-  const userEmail = searchParams?.email || "your email address"; 
+import { founderSubcriptions } from "@/api/serverMutation";
 
+export default async function PaymentSuccess({ searchParams }) {
+  const param = await searchParams;
+  const sessionId = param?.session_id;
+  const userEmail = param?.email;
+
+  await founderSubcriptions({ ...param, payment_status: "success" });
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 antialiased text-zinc-100">
       <div className="max-w-md w-full bg-zinc-900 rounded-2xl shadow-2xl p-8 text-center border border-zinc-800 transform transition-all">
-        
         {/* Success Icon - Vibrant Purple Neon Style */}
         <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-purple-950/50 border border-purple-500/30 mb-6 shadow-[0_0_20px_rgba(168,85,247,0.15)]">
           <svg
@@ -34,16 +37,24 @@ export default function PaymentSuccess({ searchParams }) {
 
         {/* Email Notification Box - Deep Purple/Violet Accents */}
         <div className="mt-6 bg-purple-950/30 rounded-xl p-4 border border-purple-900/40 flex items-center justify-center gap-3">
-          <svg 
-            className="h-5 w-5 text-purple-400 shrink-0" 
-            fill="none" 
-            stroke="currentColor" 
+          <svg
+            className="h-5 w-5 text-purple-400 shrink-0"
+            fill="none"
+            stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            />
           </svg>
           <p className="text-xs sm:text-sm text-purple-300 font-medium text-left">
-            A receipt has been sent to <span className="font-bold text-purple-200 underline break-all">{userEmail}</span>
+            A receipt has been sent to{" "}
+            <span className="font-bold text-purple-200 underline break-all">
+              {userEmail}
+            </span>
           </p>
         </div>
 
@@ -76,7 +87,6 @@ export default function PaymentSuccess({ searchParams }) {
             Back Home
           </a>
         </div>
-        
       </div>
     </div>
   );

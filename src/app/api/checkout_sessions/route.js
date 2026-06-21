@@ -2,6 +2,7 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { PLAN_PRICE, stripe } from "@/lib/stripe";
+import { founderSubcriptions } from "@/api/serverMutation";
 
 export async function POST(req) {
   try {
@@ -13,34 +14,42 @@ export async function POST(req) {
     // ── 1. Build line item based on payment type ───────────────────
     let lineItem, metadata, mode, successUrl;
 
-    if (PlanId !== "founder_pro") {
+    if (PlanId === "founder_free") {
       // Fixed plan: use a pre-created Price ID from the Stripe dashboard
       lineItem = { price: priceId, quantity: 1 }; // price id from stripe dashboard
       mode = "subscription";
       successUrl = `${origin}/dashboard/premium-success?session_id={CHECKOUT_SESSION_ID}`;
     } else {
-      // Dynamic price: pass price_data inline (no dashboard setup required)
       lineItem = {
         price_data: {
           currency: "usd",
-          unit_amount:Number( price)*100, // ALWAYS multiply by 100 for cents
-          product_data: { name:name},
+          unit_amount: Number(price) * 100, // ALWAYS multiply by 100 for cents
+          product_data: { name: name },
         },
         quantity: 1,
       };
       mode = "payment";
-      successUrl = `${origin}/payment-success?session_id={CHECKOUT_SESSION_ID}`;
+      successUrl =
+        `${origin}/payment-success` +
+        `?transaction_id={CHECKOUT_SESSION_ID}` +
+        `&email=${encodeURIComponent(email)}` +
+        `&plan=${PlanId}` +
+        `&userId=${userId}`+
+        `&price=${price}`;
 
       // Store whatever you need to identify this transaction later
       metadata = {
-        Plan: PlanId,
+        plan: PlanId,
         limit: limit,
         price: price,
         userId: userId,
         email: email,
+
+        
       };
     }
- 
+
+    //
     // ── 2. Create the Stripe Checkout Session ──────────
     const session = await stripe.checkout.sessions.create({
       line_items: [lineItem],

@@ -15,7 +15,7 @@ export const getData = async (path,userId) => {
   }
 };
 export const postData = async (path, query) => {
-  console.log(path, query)
+  
   try {
     const res = await fetch(`${BASE_URL}${path}`, {
       method: "POST",

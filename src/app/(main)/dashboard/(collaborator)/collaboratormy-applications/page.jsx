@@ -9,7 +9,7 @@ const MyApplicationsTable = lazy(
 
 const CollaboratormyApplicationsPage = async () => {
   const user = await handleUser();
-  console.log(user);
+ 
   const CollaboratorData = await CollaboratorApplyData(user?.id);
 
   return (

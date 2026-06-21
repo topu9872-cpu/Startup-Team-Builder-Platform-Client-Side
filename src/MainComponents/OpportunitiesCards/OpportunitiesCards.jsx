@@ -35,6 +35,14 @@ const OpportunitiesCards = ({ opportunities }) => {
     workType
   } = opportunities;
 
+   const formattedDeadline = applicationDeadline
+    ? new Date(applicationDeadline).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    : "N/A";
+
   return (
     <motion.div
       variants={containerVariants}
@@ -99,7 +107,7 @@ const OpportunitiesCards = ({ opportunities }) => {
              <span className="text-slate-500">Deadline:</span>
 
             <span className="text-slate-400 font-medium">
-              {applicationDeadline}
+              {formattedDeadline}
             </span></div>
            <div> <span className="text-slate-500">StartupName:</span>
 

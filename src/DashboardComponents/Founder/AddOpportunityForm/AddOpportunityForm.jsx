@@ -7,14 +7,15 @@ import { useRouter } from "next/navigation";
 
 const AddOpportunityForm = ({ user, plan, founderOpportunitiesData }) => {
   const planLimit = plan.find((item) => item.planName === user?.plan);
+
   const isLimitReached =
     founderOpportunitiesData?.length >= planLimit?.applicationLimit;
-const router=useRouter()
+  const router = useRouter();
   const [formData, setFormData] = useState({
     roleTitle: "",
     startupName: "",
     requiredSkills: [],
-    applicationDeadline: "",
+    applicationDeadline:new Date().toISOString().split("T")[0],
     compensation: "",
     workType: "",
     commitmentLevel: "",
@@ -24,7 +25,7 @@ const router=useRouter()
     corePulseBackendSystems: "",
     description: "",
     userId: user?.id,
-    createdAt: new Date(),
+    createdAt: new Date().toLocaleDateString("en-GB"),
   });
   const [skillInput, setSkillInput] = useState("");
 
@@ -56,7 +57,7 @@ const router=useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    window.location.reload();
     if (isLimitReached) {
       toast.error(
         "Limit reached. Please upgrade your account to add more opportunities.",
@@ -66,8 +67,7 @@ const router=useRouter()
 
     const founderPost = await Opportunities(formData);
     if (founderPost) {
-     
-      router.refresh()
+      router.refresh();
       toast.success("Opportunity Post Successfully !");
     } else {
       toast.error("Opportunity Post Failed !");
