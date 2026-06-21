@@ -273,7 +273,7 @@ export default function Signup() {
         >
           Already have an account?
           <Link
-            href={`/login?redirecto=${redirectTo}`}
+            href={`/login?redirect=${redirectTo}`}
             className="text-indigo-400 hover:underline hover:text-indigo-300 transition-colors"
           >
             Sign In

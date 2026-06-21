@@ -43,9 +43,9 @@ export default function Login() {
       },
     }),
   };
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
 
-  const searchParam = useSearchParams();
-  const redirectTo = searchParam.get("redirect") || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();

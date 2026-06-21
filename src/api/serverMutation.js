@@ -1,4 +1,4 @@
-import { getData, postData } from "./server";
+import { deleteData, getData, postData, UpdateData } from "./server";
 // get startups data
 export const getStartups = async () => {
   return getData("/startups");
@@ -76,6 +76,32 @@ export const founderOpportunities = (userId) => {
 /**
  * ! founder opportunities data
  */
-export const founderSubcriptions= (userId) => {
+export const founderSubcriptions = (userId) => {
   return postData("/subcriptions", userId);
+};
+/**
+ * ! founder opportunities data
+ */
+export const founderStartups = (updated) => {
+  return postData("/startups", updated);
+};
+
+/**
+ * ! founder startups data
+ */
+export const founderStartupsAllData = (userId) => {
+  return getData(`/startups/${userId}`);
+};
+/**
+ * ! founder startups data
+ */
+export const founderStartupsDataUpdate = (userId, data) => {
+  return UpdateData(`/startups/${userId}`, data);
+};
+/**
+ * ! founder startups data
+ */
+export const founderStartupsDataDelete = (id) => {
+ 
+  return deleteData(`/startups/${id}`);
 };

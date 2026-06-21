@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Mail,
@@ -15,7 +15,11 @@ import { postApply } from "@/api/serverMutation";
 
 export default function ApplyOpportunityForm({ id, user, data }) {
   const router = useRouter();
-
+  useEffect(() => {
+    if (!user) {
+      router.replace("/login");
+    }
+  }, [user,router]);
   const [focused, setFocused] = useState("");
   const [loading, setLoading] = useState(false);
 

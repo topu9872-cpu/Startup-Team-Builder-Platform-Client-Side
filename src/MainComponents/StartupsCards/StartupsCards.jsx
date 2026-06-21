@@ -10,12 +10,12 @@ export default function StartupsCards({ startups }) {
 
     founderName,
 
-
     industry,
     logo,
     startupName,
     teamSizeNeeded,
   } = startups;
+
 
   return (
     <div className="w-full max-w-5xl mx-auto px-4 py-4 rounded text-slate-100 font-sans bg-slate-950 space-y-10">
