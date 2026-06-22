@@ -1,4 +1,4 @@
-import { deleteData, getData, postData, UpdateData } from "./server";
+import { deleteData, getAllData, getData, postData, UpdateData } from "./server";
 // get startups data
 export const getStartups = async () => {
   return getData("/startups");
@@ -13,14 +13,14 @@ export const getOpportunities = async ({
   ecosystemSegment = "",
   workType = "",
 }) => {
-  const params = new URLSearchParams({
-    search,
-    page,
-    ecosystemSegment,
-    workType,
-  });
+  const params = new URLSearchParams();
 
-  return await getData(`/all-opportunities`, params.toString());
+  if (search) params.append("search", search);
+  if (page) params.append("page", page);
+  if (ecosystemSegment) params.append("ecosystemSegment", ecosystemSegment);
+  if (workType) params.append("workType", workType);
+
+  return await getAllData(`/all-opportunities?${params.toString()}`);
 };
 
 /**
@@ -101,7 +101,7 @@ export const founderStartupsAllData = (userId) => {
  * ! founder startups data update
  */
 export const founderStartupsDataUpdate = (userId, data) => {
-  console.log(userId, data)
+  console.log(userId, data);
   return UpdateData(`/startups/${userId}`, data);
 };
 /**
@@ -141,4 +141,19 @@ export const founderOpportunitiesUpdate = (userId, data) => {
  */
 export const UpdateApplicationsStatus = (userId, data) => {
   return UpdateData(`/application/${userId}`, data);
+};
+
+/**
+ * ! get all users
+ */
+
+export const getAllUsers = async () => {
+  return getData("/users");
+};
+/**
+ * ! get all users
+ */
+
+export const updateAllUsers = async (id, data) => {
+  return getData(`/users/${id}`,data);
 };

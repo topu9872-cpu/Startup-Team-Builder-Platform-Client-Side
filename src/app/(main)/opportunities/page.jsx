@@ -26,8 +26,9 @@ const OpportunitiesPage = async ({ searchParams }) => {
     workType,
     page
   });
-  const totalPages = opportunitiesData.totalPages || 1;
+console.log(search)
 
+  const totalPages = opportunitiesData.totalPages || 1;
   return (
     <div>
       <StartupSearchBar />

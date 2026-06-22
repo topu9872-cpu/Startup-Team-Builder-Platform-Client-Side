@@ -3,7 +3,7 @@
 const BASE_URL = process.env.NEXT_PUBLIC_URI;
 
 export const getData = async (path,userId) => {
-console.log(userId)
+
   try {
     const res = await fetch(`${BASE_URL}${path}?userId=${userId}`);
  
@@ -61,6 +61,21 @@ export const deleteData = async (path) => {
 
     if (!res.ok) throw new Error("Failed to fatch delete data");
     return res.json();
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+
+
+export const getAllData = async (path) => {
+
+  try {
+    const res = await fetch(`${BASE_URL}${path}`);
+ 
+    if (!res.ok) throw new Error("Failed to fatch get data");
+    return await res.json();
   } catch (error) {
     console.error(error);
     return [];

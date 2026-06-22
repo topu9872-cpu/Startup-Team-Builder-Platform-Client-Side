@@ -21,7 +21,6 @@ export default function StartupSearchBar() {
   e.preventDefault();
 
   const query = new URLSearchParams();
-
   if (search) query.set("search", search);
   if (ecosystemSegment) query.set("ecosystemSegment", ecosystemSegment);
   if (workType) query.set("workType", workType);

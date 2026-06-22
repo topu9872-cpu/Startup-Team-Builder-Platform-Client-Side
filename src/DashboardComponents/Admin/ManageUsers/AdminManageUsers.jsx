@@ -1,31 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import { 
-  Users, 
-  Mail, 
-  Shield, 
-  CheckCircle2, 
-  Ban, 
+import {
+  Users,
+  Mail,
+  Shield,
+  CheckCircle2,
+  Ban,
   UserCheck,
-  UserX
+  UserX,
 } from "lucide-react";
+import { updateAllUsers } from "@/api/serverMutation";
 
-export default function ManageUsers() {
-  const [users, setUsers] = useState([
-    { id: 1, name: "John Doe", email: "john@gmail.com", role: "Founder", status: "Active" },
-    { id: 2, name: "Sarah Lee", email: "sarah@gmail.com", role: "Collaborator", status: "Blocked" },
-    { id: 3, name: "Mike Ross", email: "mike@gmail.com", role: "Admin", status: "Active" },
-  ]);
-
-  const toggleStatus = (id) => {
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.id === id
-          ? { ...user, status: user.status === "Active" ? "Blocked" : "Active" }
-          : user
-      )
-    );
+export default function ManageUsers({ allUsers }) {
+  const handleUpdateUser = async (id, isBlock) => {
+    const update = await updateAllUsers();
   };
 
   // Get dynamic custom styles for system roles
@@ -40,31 +29,24 @@ export default function ManageUsers() {
     }
   };
 
-  // Extract initials for modern placeholder avatars
-  const getInitials = (name) => {
-    return name
-      .split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase();
-  };
-
   return (
     <div className="max-w-7xl mx-auto p-2 space-y-4">
-      
       {/* Control Module Title Header */}
       <div className="border-b border-slate-800/60 pb-4">
         <h2 className="text-base font-bold text-white flex items-center gap-2">
-          <Users className="size-4.5 text-blue-400" /> Identity & Access Management
+          <Users className="size-4.5 text-blue-400" /> Identity & Access
+          Management
         </h2>
-        <p className="text-xs text-slate-400 mt-0.5">Audit user authorization scopes, manage security lifecycle access, and restrict network privileges.</p>
+        <p className="text-xs text-slate-400 mt-0.5">
+          Audit user authorization scopes, manage security lifecycle access, and
+          restrict network privileges.
+        </p>
       </div>
 
       {/* Main Table View Wrapper */}
       <div className="overflow-hidden bg-[#0d0e12] border border-slate-800/80 rounded-xl shadow-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse text-xs">
-            
             {/* Table Header Row */}
             <thead>
               <tr className="border-b border-slate-950 bg-[#111217] text-slate-400 font-semibold uppercase tracking-wider text-[10px]">
@@ -78,12 +60,12 @@ export default function ManageUsers() {
 
             {/* Table Body Content */}
             <tbody className="divide-y divide-slate-900/60 text-slate-300">
-              {users.map((user, index) => {
-                const isActive = user.status === "Active";
+              {allUsers.map((user, index) => {
+                const isActive = user.isBlock === false;
 
                 return (
-                  <tr 
-                    key={user.id} 
+                  <tr
+                    key={user._id}
                     className="hover:bg-slate-950/40 transition-colors duration-150 group"
                   >
                     {/* Index Index Track */}
@@ -95,17 +77,21 @@ export default function ManageUsers() {
                     <td className="py-3.5 px-4">
                       <div className="flex items-center gap-3">
                         {/* High-End Cyber Initials Avatar Box */}
-                        <div className={`h-8 w-8 rounded-lg flex items-center justify-center font-bold text-[11px] border tracking-wider transition-all duration-300
-                          ${isActive 
-                            ? "bg-slate-900 border-slate-800 text-slate-200 group-hover:border-blue-500/30 group-hover:text-blue-400" 
-                            : "bg-red-950/10 border-red-950 text-slate-600"
+                        <div
+                          className={`h-8 w-8 rounded-lg flex items-center justify-center font-bold text-[11px] border tracking-wider transition-all duration-300
+                          ${
+                            isActive
+                              ? "bg-slate-900 border-slate-800 text-slate-200 group-hover:border-blue-500/30 group-hover:text-blue-400"
+                              : "bg-red-950/10 border-red-950 text-slate-600"
                           }`}
                         >
-                          {getInitials(user.name)}
+                          {user.name[0]}
                         </div>
                         {/* User Identity Details Bundle */}
                         <div className="flex flex-col space-y-0.5">
-                          <span className={`font-semibold tracking-tight transition-colors ${isActive ? "text-white" : "text-slate-500 line-through"}`}>
+                          <span
+                            className={`font-semibold tracking-tight transition-colors ${isActive ? "text-white" : "text-slate-500 line-through"}`}
+                          >
                             {user.name}
                           </span>
                           <span className="text-slate-500 font-medium text-[11px] flex items-center gap-1">
@@ -118,7 +104,9 @@ export default function ManageUsers() {
 
                     {/* Custom Scaled Role Badge */}
                     <td className="py-3.5 px-4 vertical-align-middle">
-                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide uppercase border ${getRoleBadgeStyles(user.role)}`}>
+                      <span
+                        className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide uppercase border ${getRoleBadgeStyles(user.role)}`}
+                      >
                         <Shield className="size-2.5" />
                         {user.role}
                       </span>
@@ -140,11 +128,12 @@ export default function ManageUsers() {
                     {/* Context-Aware Security Controls */}
                     <td className="py-3.5 px-4 text-right">
                       <button
-                        onClick={() => toggleStatus(user.id)}
+                        onClick={() => handleUpdateUser(user._id, true)}
                         className={`h-7 px-3 rounded-lg font-medium text-[11px] inline-flex items-center gap-1.5 transition-all active:scale-97 cursor-pointer
-                          ${isActive
-                            ? "bg-transparent border border-slate-800 hover:border-red-500/30 text-slate-400 hover:text-red-400 hover:bg-red-950/10"
-                            : "bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-950/30"
+                          ${
+                            isActive
+                              ? "bg-transparent border border-slate-800 hover:border-red-500/30 text-slate-400 hover:text-red-400 hover:bg-red-950/10"
+                              : "bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-950/30"
                           }`}
                       >
                         {isActive ? (
@@ -160,16 +149,13 @@ export default function ManageUsers() {
                         )}
                       </button>
                     </td>
-
                   </tr>
                 );
               })}
             </tbody>
-
           </table>
         </div>
       </div>
-
     </div>
   );
 }
