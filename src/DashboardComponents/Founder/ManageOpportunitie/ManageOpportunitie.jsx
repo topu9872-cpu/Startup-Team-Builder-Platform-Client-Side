@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function ManageOpportunitie({ ManageOpportunities }) {
 
   return (
-    <div className="overflow-x-auto bg-base-100 rounded-xl shadow">
+    <div className="overflow-x-auto bg-base-100 rounded-xl  shadow">
       <table className="table">
         <thead>
           <tr>
@@ -17,7 +17,7 @@ export default function ManageOpportunitie({ ManageOpportunities }) {
             <th>Sector</th>
             <th>Work Type</th>
             <th>Deadline</th>
-            <th>Actions</th>
+            <th className="flex justify-center">Actions</th>
           </tr>
         </thead>
 
@@ -32,9 +32,9 @@ export default function ManageOpportunitie({ ManageOpportunities }) {
               <td>{op.applicationDeadline}</td>
 
               <td className="flex gap-2">
-                {/* <Link href={`/opportunities/${_id}`} className="btn btn-info btn-sm">
+                <Link href={`/opportunities/${op._id}`} className="btn btn-info btn-sm">
                   View
-                </Link> */}
+                </Link>
                 <UpdateOpportunityModal
                   initialData={op}
                 />

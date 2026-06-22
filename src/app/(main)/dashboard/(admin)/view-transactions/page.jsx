@@ -1,11 +1,14 @@
+import { getSubcriptions } from "@/api/serverMutation";
 import { lazy } from "@/lib/lazy";
 
 const Transactions=lazy(()=>import("@/DashboardComponents/Admin/Transactions/Transactions")) ;
 
-const ViewTransactionsPage = () => {
+const ViewTransactionsPage = async() => {
+  const transactionsData=await getSubcriptions()
+
   return (
     <div>
-      <Transactions/>
+    <Transactions transactionsData={transactionsData}/>
     </div>
   );
 };

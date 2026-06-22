@@ -3,12 +3,12 @@
 const BASE_URL = process.env.NEXT_PUBLIC_URI;
 
 export const getData = async (path,userId) => {
-
+console.log(userId)
   try {
     const res = await fetch(`${BASE_URL}${path}?userId=${userId}`);
  
     if (!res.ok) throw new Error("Failed to fatch get data");
-    return res.json();
+    return await res.json();
   } catch (error) {
     console.error(error);
     return [];
@@ -34,7 +34,7 @@ export const postData = async (path, query) => {
 };
 
 export const UpdateData = async (path, data) => {
- 
+   
   try {
     const res = await fetch(`${BASE_URL}${path}`, {
       method: "PATCH",

@@ -12,17 +12,15 @@ export const getOpportunities = async ({
   page = 1,
   ecosystemSegment = "",
   workType = "",
-} = {}) => {
-  const query = new URLSearchParams();
+}) => {
+  const params = new URLSearchParams({
+    search,
+    page,
+    ecosystemSegment,
+    workType,
+  });
 
-  query.set("page", String(page));
-
-  if (search) query.set("search", search);
-
-  if (ecosystemSegment) query.set("ecosystemSegment", ecosystemSegment);
-  if (workType) query.set("workType", workType);
-
-  return getData(`/opportunities?${query.toString()}`);
+  return await getData(`/all-opportunities`, params.toString());
 };
 
 /**
@@ -80,6 +78,13 @@ export const founderSubcriptions = (userId) => {
   return postData("/subcriptions", userId);
 };
 /**
+ * ! get Subcriptions data
+ */
+export const getSubcriptions = () => {
+  return getData("/subcriptions");
+};
+
+/**
  * !post founder Startups data
  */
 export const founderStartups = (updated) => {
@@ -96,6 +101,7 @@ export const founderStartupsAllData = (userId) => {
  * ! founder startups data update
  */
 export const founderStartupsDataUpdate = (userId, data) => {
+  console.log(userId, data)
   return UpdateData(`/startups/${userId}`, data);
 };
 /**
@@ -127,13 +133,12 @@ export const founderOpportunitiesDelete = (userId) => {
  * ! founder startups data
  */
 export const founderOpportunitiesUpdate = (userId, data) => {
-
-  return UpdateData(`/founder-opportunities/${userId}`,data);
+  return UpdateData(`/founder-opportunities/${userId}`, data);
 };
 
 /**
  * ! founder startups data
  */
 export const UpdateApplicationsStatus = (userId, data) => {
-  return UpdateData(`/application/${userId}`,data);
+  return UpdateData(`/application/${userId}`, data);
 };

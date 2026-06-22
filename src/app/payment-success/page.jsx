@@ -4,7 +4,7 @@ export default async function PaymentSuccess({ searchParams }) {
   const param = await searchParams;
   const sessionId = param?.session_id;
   const userEmail = param?.email;
-
+console.log(param)
   await founderSubcriptions({ ...param, payment_status: "success" });
   return (
     <div className="min-h-screen bg-zinc-950 flex items-center justify-center p-4 antialiased text-zinc-100">

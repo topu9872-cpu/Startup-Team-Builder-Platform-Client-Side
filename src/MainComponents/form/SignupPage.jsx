@@ -16,7 +16,6 @@ export default function Signup() {
   const [image, setImage] = useState("");
   const [role, setRole] = useState("collaborator");
   // Added state to hold values so inputs don't bug out or become invisible
-
   const handleFocus = (field) => setFocused(field);
   const handleBlur = () => setFocused("");
 
@@ -36,7 +35,7 @@ export default function Signup() {
   };
   const router = useRouter();
   const searchParam = useSearchParams();
-  const redirectTo = searchParam.get("redirect") || "/";
+  const redirectTo = searchParam.get("callbackUrl") || "/";
   const handleSubmit = async (e) => {
     e.preventDefault();
     const plan = role === "collaborator" ? "collaborator_free" : "founder_free";

@@ -7,7 +7,7 @@ import { founderSubcriptions } from "@/api/serverMutation";
 export async function POST(req) {
   try {
     const origin = (await headers()).get("origin");
-    const { plan, userId, email } = await req.json();
+    const { plan, userId, email, AccountHolder } = await req.json();
 
     const { PlanId, price, limit, name } = plan;
     const priceId = PLAN_PRICE[PlanId];
@@ -34,9 +34,10 @@ export async function POST(req) {
         `?transaction_id={CHECKOUT_SESSION_ID}` +
         `&email=${encodeURIComponent(email)}` +
         `&plan=${PlanId}` +
-        `&userId=${userId}`+
-        `&price=${price}`;
-
+        `&userId=${userId}` +
+        `&price=${price}` +
+        `&AccountHolder=${AccountHolder}`;
+console.log(AccountHolder)
       // Store whatever you need to identify this transaction later
       metadata = {
         plan: PlanId,
@@ -44,8 +45,6 @@ export async function POST(req) {
         price: price,
         userId: userId,
         email: email,
-
-        
       };
     }
 

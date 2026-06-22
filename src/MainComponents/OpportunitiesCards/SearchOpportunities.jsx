@@ -18,18 +18,18 @@ export default function StartupSearchBar() {
   const [showFilters, setShowFilters] = useState(true);
   const router = useRouter();
   const handleFilterSubmit = (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const query = new URLSearchParams();
+  const query = new URLSearchParams();
 
-    if (search) query.set("search", search);
-    if (ecosystemSegment) query.set("ecosystemSegment", ecosystemSegment);
-    if (workType) query.set("workType", workType);
+  if (search) query.set("search", search);
+  if (ecosystemSegment) query.set("ecosystemSegment", ecosystemSegment);
+  if (workType) query.set("workType", workType);
 
-    query.set("page", "1");
+  query.set("page", "1");
 
-    router.push(`/opportunities?${query.toString()}`);
-  };
+  router.push(`/opportunities?${query.toString()}`);
+};
   const clearFilters = () => {
     setSearch("");
 

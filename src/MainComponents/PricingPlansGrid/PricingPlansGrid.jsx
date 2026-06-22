@@ -87,6 +87,7 @@ export default function PricingPlansGrid({
         type: "subscription",
         userId: user?.id,
         email: user?.email,
+        AccountHolder:user?.name
       }),
     });
 

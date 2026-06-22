@@ -1,42 +1,51 @@
 "use client";
 
 import React, { useState } from "react";
-import { 
-  Building2, 
-  User, 
-  Cpu, 
-  CheckCircle2, 
-  Clock, 
-  Trash2, 
-  ShieldCheck, 
-  Inbox 
+import {
+  Building2,
+  User,
+  Cpu,
+  CheckCircle2,
+  Clock,
+  Trash2,
+  ShieldCheck,
+  Inbox,
+  XCircle,
 } from "lucide-react";
+import toast from "react-hot-toast";
+import {
+  founderStartupsDataDelete,
+  founderStartupsDataUpdate,
+} from "@/api/serverMutation";
 
-export default function ManageStartups() {
-  const [startups, setStartups] = useState([
-    { id: 1, name: "SkyForge", founder: "John Doe", sector: "Cloud", status: "Pending" },
-    { id: 2, name: "CorePulse", founder: "Sarah Lee", sector: "AI", status: "Approved" },
-    { id: 3, name: "DevNest", founder: "Mike Ross", sector: "DevTools", status: "Pending" },
-  ]);
+import { useRouter } from "next/navigation";
+import { IoMdRemoveCircleOutline } from "react-icons/io";
+import StarupsDelete from "./StartupsDatate";
 
-  const handleApprove = (id) => {
-    setStartups((prev) =>
-      prev.map((s) => (s.id === id ? { ...s, status: "Approved" } : s))
-    );
+
+export default function ManageStartups({ startupsManage }) {
+  const rouder = useRouter();
+
+  const handleApprove = async (id, status) => {
+    await founderStartupsDataUpdate(id, { status });
+    toast.success("Approved");
+    rouder.refresh();
   };
 
-  const handleRemove = (id) => {
-    setStartups((prev) => prev.filter((s) => s.id !== id));
-  };
+ 
 
   return (
     <div className="max-w-7xl mx-auto p-2 space-y-4">
       {/* Table Title Module */}
       <div className="border-b border-slate-800/60 pb-4">
         <h2 className="text-base font-bold text-white flex items-center gap-2">
-          <Building2 className="size-4.5 text-purple-400" /> Startup Directory Approvals
+          <Building2 className="size-4.5 text-purple-400" /> Startup Directory
+          Approvals
         </h2>
-        <p className="text-xs text-slate-400 mt-0.5">Approve incoming venture applications or safely purge decommissioned organizations.</p>
+        <p className="text-xs text-slate-400 mt-0.5">
+          Approve incoming venture applications or safely purge decommissioned
+          organizations.
+        </p>
       </div>
 
       {/* Main Wrapper Box */}
@@ -49,7 +58,7 @@ export default function ManageStartups() {
                 <th className="py-3.5 px-4 w-12 text-center">#</th>
                 <th className="py-3.5 px-4">Startup</th>
                 <th className="py-3.5 px-4">Founder</th>
-                <th className="py-3.5 px-4">Sector</th>
+                <th className="py-3.5 px-4">FundingStage</th>
                 <th className="py-3.5 px-4">Status</th>
                 <th className="py-3.5 px-4 text-right w-48">Actions</th>
               </tr>
@@ -57,12 +66,13 @@ export default function ManageStartups() {
 
             {/* Dynamic Body Element */}
             <tbody className="divide-y divide-slate-900/60 text-slate-300">
-              {startups.map((startup, index) => {
+              {startupsManage.map((startup, index) => {
                 const isApproved = startup.status === "Approved";
-                
+                const isRejected = startup.status === "isRejected";
+
                 return (
-                  <tr 
-                    key={startup.id} 
+                  <tr
+                    key={startup._id}
                     className="hover:bg-slate-950/40 transition-colors duration-150 group"
                   >
                     {/* Index Counter */}
@@ -74,7 +84,7 @@ export default function ManageStartups() {
                     <td className="py-3.5 px-4 font-semibold text-white tracking-tight">
                       <div className="flex items-center gap-2">
                         <div className="size-2 rounded-full bg-slate-800 group-hover:bg-purple-500 transition-colors" />
-                        {startup.name}
+                        {startup.startupName}
                       </div>
                     </td>
 
@@ -82,7 +92,7 @@ export default function ManageStartups() {
                     <td className="py-3.5 px-4 text-slate-400 font-medium">
                       <div className="flex items-center gap-1.5">
                         <User className="size-3.5 text-slate-600" />
-                        {startup.founder}
+                        {startup.founderName}
                       </div>
                     </td>
 
@@ -90,19 +100,26 @@ export default function ManageStartups() {
                     <td className="py-3.5 px-4">
                       <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide uppercase bg-blue-500/5 border border-blue-500/20 text-blue-400">
                         <Cpu className="size-2.5" />
-                        {startup.sector}
+                        {startup.fundingStage}
                       </span>
                     </td>
 
                     {/* Operational Review Status Badge */}
                     <td className="py-3.5 px-4">
                       {isApproved ? (
-                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 shadow-xs shadow-emerald-950/50">
-                          <CheckCircle2 className="size-3" /> Approved
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                          <CheckCircle2 className="size-3" />
+                          Approved
+                        </span>
+                      ) : isRejected ? (
+                        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-red-500/10 border border-red-500/20 text-red-400">
+                          <XCircle className="size-3" />
+                          Rejected
                         </span>
                       ) : (
                         <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-amber-500/10 border border-amber-500/20 text-amber-400 animate-pulse">
-                          <Clock className="size-3" /> Pending Review
+                          <Clock className="size-3" />
+                          Pending Review
                         </span>
                       )}
                     </td>
@@ -110,28 +127,31 @@ export default function ManageStartups() {
                     {/* Action Panel Track */}
                     <td className="py-3.5 px-4 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        {/* Approve Trigger */}
-                        {!isApproved ? (
+                        {!isApproved && !isRejected && (
                           <button
-                            onClick={() => handleApprove(startup.id)}
-                            className="h-7 px-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-[11px] flex items-center gap-1 transition shadow-md shadow-emerald-950/30 active:scale-97 cursor-pointer"
+                            onClick={() =>
+                              handleApprove(startup._id, "Approved")
+                            }
+                            className="h-7 px-2.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-[11px] flex items-center gap-1 transition cursor-pointer"
                           >
                             <ShieldCheck className="size-3.5" />
                             Approve
                           </button>
-                        ) : (
-                          // Uniform Spacer placeholder keeping grid width absolute
-                          <div className="h-7 w-20" />
                         )}
 
-                        {/* Remove Destructive Trigger */}
-                        <button
-                          onClick={() => handleRemove(startup.id)}
-                          className="h-7 w-7 rounded-lg bg-transparent border border-slate-800 hover:border-red-500/30 text-slate-400 hover:text-red-400 flex items-center justify-center transition hover:bg-red-950/20 cursor-pointer"
-                          title="Purge Startup Profile"
-                        >
-                          <Trash2 className="size-3.5" />
-                        </button>
+                        {isApproved && (
+                          <button
+                            onClick={() =>
+                              handleApprove(startup._id, "Rejected")
+                            }
+                            className="h-7 px-2.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-medium text-[11px] flex items-center gap-1 transition cursor-pointer"
+                          >
+                            <IoMdRemoveCircleOutline className="size-3.5" />
+                            Reject
+                          </button>
+                        )}
+
+                        <StarupsDelete id={startup} />
                       </div>
                     </td>
                   </tr>
@@ -142,14 +162,17 @@ export default function ManageStartups() {
         </div>
 
         {/* Empty Directory Fallback Layout */}
-        {startups.length === 0 && (
+        {startupsManage.length === 0 && (
           <div className="p-12 text-center flex flex-col items-center justify-center bg-[#0d0e12]">
             <div className="h-12 w-12 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-500 mb-3 shadow-inner">
               <Inbox className="size-5" />
             </div>
-            <h3 className="text-sm font-bold text-white tracking-tight">Ecosystem Directory Empty</h3>
+            <h3 className="text-sm font-bold text-white tracking-tight">
+              Ecosystem Directory Empty
+            </h3>
             <p className="text-xs text-slate-500 max-w-xs mt-1 leading-relaxed">
-              No registration requests detected. New startup applications will populate here automatically.
+              No registration requests detected. New startup applications will
+              populate here automatically.
             </p>
           </div>
         )}
