@@ -13,7 +13,7 @@ import {
   Landmark,
   LogOut,
   ShieldAlert,
-  SquareActivity,
+  
   Dock,
 } from "lucide-react";
 import { TbTransactionDollar, TbUsersGroup } from "react-icons/tb";
@@ -164,7 +164,7 @@ export default function Sidebar() {
       </div>
       <div className="flex flex-col">
         <span className="font-mono font-black text-sm text-slate-100 tracking-wider leading-none">
-          NEXUS
+        Startup Hub
         </span>
         <span className="text-[9px] font-mono font-bold text-purple-400/80 tracking-widest uppercase mt-0.5">
           view

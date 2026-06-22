@@ -10,7 +10,7 @@ const FounderApplicationsPage = async () => {
   const user = await handleUser();
 
   const applications = await CompaniseApplications(user?.id);
-console.log(applications)
+
   return (
     <div>
       <ApplicationsTable applications={applications} />
