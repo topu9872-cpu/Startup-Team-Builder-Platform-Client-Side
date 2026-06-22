@@ -3,8 +3,21 @@
 import React from "react";
 import { AlertDialog, Button } from "@heroui/react";
 import { Trash2, AlertTriangle, X } from "lucide-react";
+import { founderOpportunitiesDelete } from "@/api/serverMutation";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-export default function DeleteDialog({ projectName = "My Awesome Project", onDelete }) {
+export default function DeleteDialog({ id }) {
+  const router=useRouter()
+  const handleDelete=async()=>{
+const deleteItem=await founderOpportunitiesDelete(id._id)
+if(deleteItem.deletedCount===1){
+  toast.success(`${id.startupName} is deleted`)
+  router.refresh()
+}else{
+  toast.error(`Faild to delete ${id.startupName}`)
+}
+  }
   return (
     <AlertDialog>
       {/* Trigger Button */}
@@ -39,7 +52,7 @@ export default function DeleteDialog({ projectName = "My Awesome Project", onDel
             {/* Body Content */}
             <AlertDialog.Body className="px-6 pb-6 text-center">
               <p className="text-slate-400 text-xs leading-relaxed">
-                This will completely purge <span className="text-red-400 font-semibold bg-red-500/5 px-1.5 py-0.5 rounded border border-red-500/10">{" "}{projectName}{" "}</span> and all associated ecosystem configurations. This structural teardown action <span className="text-slate-200 font-medium underline decoration-red-500/40 underline-offset-2">cannot be reversed</span>.
+                This will completely purge <span className="text-red-400 font-semibold bg-red-500/5 px-1.5 py-0.5 rounded border border-red-500/10">{id.startupName}</span> and all associated ecosystem configurations. This structural teardown action <span className="text-slate-200 font-medium underline decoration-red-500/40 underline-offset-2">cannot be reversed</span>.
               </p>
             </AlertDialog.Body>
 
@@ -51,9 +64,9 @@ export default function DeleteDialog({ projectName = "My Awesome Project", onDel
               >
                 Cancel
               </Button>
-              <Button 
+              <Button type="button"
                 slot="close" 
-                onClick={onDelete}
+                onClick={()=>handleDelete()}
                 className="px-4 h-9 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-semibold shadow-lg shadow-red-900/30 transition active:scale-98"
               >
                 Confirm Destructive Purge

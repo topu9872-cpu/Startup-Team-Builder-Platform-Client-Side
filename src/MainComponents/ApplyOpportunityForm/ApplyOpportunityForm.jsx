@@ -14,12 +14,13 @@ import { useRouter } from "next/navigation";
 import { postApply } from "@/api/serverMutation";
 
 export default function ApplyOpportunityForm({ id, user, data }) {
+
   const router = useRouter();
   useEffect(() => {
     if (!user) {
       router.replace("/login");
     }
-  }, [user,router]);
+  }, [user, router]);
   const [focused, setFocused] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -38,7 +39,10 @@ export default function ApplyOpportunityForm({ id, user, data }) {
       appliedDate: new Date().toLocaleDateString("en-GB"),
       satartupName: data.startupName,
       roleTitle: data.roleTitle || "No opportunityName",
+      founderId: data.userId,
       userid: user?.id,
+      role: user?.role,
+      name: user?.name,
     };
     const dataPost = await postApply(query);
 

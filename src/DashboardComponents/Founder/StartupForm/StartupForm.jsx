@@ -61,7 +61,7 @@ export default function StartupForm({ user,companies }) {
       user: user?.id,
     };
 
-    const updated = [newCompany, ...companies];
+    
 
 
     try {
@@ -79,7 +79,7 @@ export default function StartupForm({ user,companies }) {
 
     resetForm();
   };
-
+console.log(companies)
   return (
     <div className="max-w-6xl mx-auto my-4 md:my-8 p-4 md:p-6 rounded-xl border border-current/20 text-current text-sm">
       {/* Dynamic Header */}
@@ -112,7 +112,7 @@ export default function StartupForm({ user,companies }) {
               </tr>
             </thead>
             <tbody className="divide-y divide-current/10">
-              {companies.length ===0  ? (
+              {!companies ? (
                 <tr>
                   <td colSpan="6" className="p-8 text-center opacity-50">
                     No profiles found.
@@ -133,7 +133,7 @@ export default function StartupForm({ user,companies }) {
                           N/A
                         </div>
                       )}
-                      {c.name}
+                      {c.startupName}
                     </td>
                     <td className="p-3 opacity-80">{c.founderName || "—"}</td>
                     <td className="p-3">

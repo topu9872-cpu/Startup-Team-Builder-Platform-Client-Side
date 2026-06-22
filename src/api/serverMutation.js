@@ -74,34 +74,66 @@ export const founderOpportunities = (userId) => {
   return getData("/founder-opportunities", userId);
 };
 /**
- * ! founder opportunities data
+ * ! post founder Subcriptions data
  */
 export const founderSubcriptions = (userId) => {
   return postData("/subcriptions", userId);
 };
 /**
- * ! founder opportunities data
+ * !post founder Startups data
  */
 export const founderStartups = (updated) => {
   return postData("/startups", updated);
 };
 
 /**
- * ! founder startups data
+ * !get founder`s all startups data
  */
 export const founderStartupsAllData = (userId) => {
   return getData(`/startups/${userId}`);
 };
 /**
- * ! founder startups data
+ * ! founder startups data update
  */
 export const founderStartupsDataUpdate = (userId, data) => {
   return UpdateData(`/startups/${userId}`, data);
 };
 /**
- * ! founder startups data
+ * ! founder startups delete
  */
 export const founderStartupsDataDelete = (id) => {
- 
   return deleteData(`/startups/${id}`);
+};
+
+/**
+ * !get founder all opportunities data
+ */
+export const founderOpportunitiesAllData = (userId) => {
+  return getData("/founder-opportunities", userId);
+};
+/**
+ * !get founder application data
+ */
+export const CompaniseApplications = (userId) => {
+  return getData("/companies-application", userId);
+};
+/**
+ * ! founder opportunities delete
+ */
+export const founderOpportunitiesDelete = (userId) => {
+  return deleteData(`/founder-opportunities/${userId}`);
+};
+/**
+ * ! founder startups data
+ */
+export const founderOpportunitiesUpdate = (userId, data) => {
+
+  return UpdateData(`/founder-opportunities/${userId}`,data);
+};
+
+/**
+ * ! founder startups data
+ */
+export const UpdateApplicationsStatus = (userId, data) => {
+  return UpdateData(`/application/${userId}`,data);
 };
