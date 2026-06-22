@@ -37,7 +37,7 @@ export async function POST(req) {
         `&userId=${userId}` +
         `&price=${price}` +
         `&AccountHolder=${AccountHolder}`;
-console.log(AccountHolder)
+
       // Store whatever you need to identify this transaction later
       metadata = {
         plan: PlanId,

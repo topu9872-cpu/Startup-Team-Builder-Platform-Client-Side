@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 export default function Transactions({ transactionsData }) {
-  console.log(transactionsData);
+
 
   return (
     <div className="max-w-7xl mx-auto p-2 space-y-4">

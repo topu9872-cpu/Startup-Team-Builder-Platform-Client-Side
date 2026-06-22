@@ -12,7 +12,7 @@ export const getOpportunities = async ({
   page = 1,
   ecosystemSegment = "",
   workType = "",
-}) => {
+}= {}) => {
   const params = new URLSearchParams();
 
   if (search) params.append("search", search);
@@ -101,7 +101,7 @@ export const founderStartupsAllData = (userId) => {
  * ! founder startups data update
  */
 export const founderStartupsDataUpdate = (userId, data) => {
-  console.log(userId, data);
+
   return UpdateData(`/startups/${userId}`, data);
 };
 /**

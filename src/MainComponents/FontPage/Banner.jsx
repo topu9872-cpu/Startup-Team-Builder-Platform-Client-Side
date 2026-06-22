@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Rocket, Users, Target } from "lucide-react";
+import Link from "next/link";
 
 export default function HeroBanner() {
   const containerVariants = {
@@ -79,22 +80,28 @@ export default function HeroBanner() {
           variants={itemVariants}
           className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2"
         >
-          <motion.button 
+          <motion.div 
             whileHover={{ scale: 1.02, y: -1 }}
             whileTap={{ scale: 0.98 }}
             className="w-full sm:w-auto flex items-center justify-center gap-2 py-3 px-5 bg-linear-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-medium text-sm rounded-lg shadow-lg shadow-indigo-500/20 transition-colors duration-200 group"
           >
+            <Link href={'/startups'}>
             Explore Startups
+            </Link>
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </motion.button>
+          </motion.div>
           
-          <motion.button 
+          <motion.div 
+
             whileHover={{ scale: 1.02, bg: "rgb(30, 41, 59)" }}
             whileTap={{ scale: 0.98 }}
             className="w-full sm:w-auto flex items-center justify-center gap-2 py-3 px-5 bg-slate-900 border border-slate-800 text-slate-300 font-medium text-sm rounded-lg transition-colors duration-200"
           >
-            Post an Opportunity
-          </motion.button>
+            <Link href={'/opportunities'}>
+             Apply an Opportunity
+            </Link>
+           
+          </motion.div>
         </motion.div>
 
         {/* Compact Metrics Panel */}

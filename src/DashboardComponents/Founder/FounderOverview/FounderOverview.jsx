@@ -48,7 +48,7 @@ export default function FounderOverview({ applications, ManageOpportunities }) {
   const filter = applications.filter(
     (applicant) => applicant.status === "Accepted",
   );
-  console.log(filter);
+
   // Dummy Metrics Dataset
   const stats = {
     totalOpportunities: ManageOpportunities.length || 0,

@@ -79,7 +79,7 @@ export default function StartupForm({ user,companies }) {
 
     resetForm();
   };
-console.log(companies)
+
   return (
     <div className="max-w-6xl mx-auto my-4 md:my-8 p-4 md:p-6 rounded-xl border border-current/20 text-current text-sm">
       {/* Dynamic Header */}

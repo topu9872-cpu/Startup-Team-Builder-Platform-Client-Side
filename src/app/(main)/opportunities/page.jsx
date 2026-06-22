@@ -26,7 +26,7 @@ const OpportunitiesPage = async ({ searchParams }) => {
     workType,
     page
   });
-console.log(search)
+
 
   const totalPages = opportunitiesData.totalPages || 1;
   return (

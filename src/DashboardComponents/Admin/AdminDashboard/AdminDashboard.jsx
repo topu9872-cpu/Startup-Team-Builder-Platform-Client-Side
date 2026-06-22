@@ -63,7 +63,7 @@ export default function AdminDashboard({
   allOpportunities,
 }) {
   const activeStartups = allStaups.filter((item) => item.status === "Approved");
-  console.log(activeStartups);
+ 
   const total = allSubcriptions.reduce(
     (sum, item) => sum + Number(item.price),
     0,
