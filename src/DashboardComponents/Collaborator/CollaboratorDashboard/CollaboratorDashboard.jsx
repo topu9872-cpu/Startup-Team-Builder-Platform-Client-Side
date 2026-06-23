@@ -25,7 +25,7 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-export default function CollaboratorDashboard({ CollaboratorData }) {
+export default function CollaboratorDashboard({ CollaboratorData,user }) {
   const Accepted = CollaboratorData.filter(
     (collaborator) => collaborator.status === "Accepted",
   );
@@ -64,9 +64,16 @@ export default function CollaboratorDashboard({ CollaboratorData }) {
       {/* Page Header Block */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-800/60 pb-5">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-white">
-            Collaborator Space
-          </h1>
+           <div className="flex gap-3">
+            <h1 className="text-xl font-bold tracking-tight text-white">
+              Wellcome, {user?.name}{" "}
+            </h1>
+            {user?.isBlock === false ? (
+              <span className=" text-green-500">Varifyed</span>
+            ) : (
+              <span className=" text-yellow-500">Blocked</span>
+            )}
+          </div>
           <p className="text-xs text-slate-400 mt-0.5">
             Track your submission pipelines, processing velocity, and historical
             outcome states.

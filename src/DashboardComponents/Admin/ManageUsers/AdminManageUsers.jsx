@@ -11,10 +11,20 @@ import {
   UserX,
 } from "lucide-react";
 import { updateAllUsers } from "@/api/serverMutation";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function ManageUsers({ allUsers }) {
-  const handleUpdateUser = async (id, isBlock) => {
-    const update = await updateAllUsers();
+  const router = useRouter();
+
+  const handleUpdateUser = async (id, name, isBlock) => {
+    const update = await updateAllUsers(id, { isBlock });
+    if (update) {
+      toast.success(`${name} is updated`);
+    } else {
+      toast.error(`${name} is not Bloked`);
+    }
+    router.refresh();
   };
 
   // Get dynamic custom styles for system roles
@@ -61,7 +71,7 @@ export default function ManageUsers({ allUsers }) {
             {/* Table Body Content */}
             <tbody className="divide-y divide-slate-900/60 text-slate-300">
               {allUsers.map((user, index) => {
-                const isActive = user.isBlock === false;
+                const isActive = user.isBlock === false ? false : true;
 
                 return (
                   <tr
@@ -127,27 +137,29 @@ export default function ManageUsers({ allUsers }) {
 
                     {/* Context-Aware Security Controls */}
                     <td className="py-3.5 px-4 text-right">
-                      <button
-                        onClick={() => handleUpdateUser(user._id, true)}
-                        className={`h-7 px-3 rounded-lg font-medium text-[11px] inline-flex items-center gap-1.5 transition-all active:scale-97 cursor-pointer
-                          ${
-                            isActive
-                              ? "bg-transparent border border-slate-800 hover:border-red-500/30 text-slate-400 hover:text-red-400 hover:bg-red-950/10"
-                              : "bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-950/30"
-                          }`}
-                      >
+                      <div className="flex justify-end gap-2">
                         {isActive ? (
-                          <>
+                          <button
+                            onClick={() =>
+                              handleUpdateUser(user._id, user.name, false)
+                            }
+                            className="h-7 px-3 rounded-lg bg-red-600 hover:bg-red-500 text-white text-[11px] font-medium inline-flex items-center gap-1.5"
+                          >
                             <UserX className="size-3.5" />
                             Block User
-                          </>
+                          </button>
                         ) : (
-                          <>
+                          <button
+                            onClick={() =>
+                              handleUpdateUser(user._id, user.name, true)
+                            }
+                            className="h-7 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-medium inline-flex items-center gap-1.5"
+                          >
                             <UserCheck className="size-3.5" />
                             Unblock User
-                          </>
+                          </button>
                         )}
-                      </button>
+                      </div>
                     </td>
                   </tr>
                 );

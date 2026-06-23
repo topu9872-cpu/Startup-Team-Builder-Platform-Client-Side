@@ -189,7 +189,7 @@ export default function Sidebar() {
       </div>
 
       {/* 2. PERSISTENT FIXED SIDEBAR ON DESKTOP LAYOUTS (>= 1024px) */}
-      <aside className="hidden lg:flex flex-col w-64 h-screen bg-slate-950 border-r border-slate-900 fixed left-0 top-0 z-30 justify-between">
+      <aside className="hidden lg:flex flex-col w-64 h-full bg-slate-950 border-r border-slate-900 fixed left-0 top-0 z-30 justify-between">
         <div>
           {/* Brand Frame Area */}
           <div className="h-16 flex items-center px-6 border-b border-slate-900/80">

@@ -43,8 +43,12 @@ const CustomTooltip = ({ active, payload }) => {
   }
   return null;
 };
-
-export default function FounderOverview({ applications, ManageOpportunities }) {
+export default function FounderOverview({
+  applications,
+  ManageOpportunities,
+  user,
+}) {
+  console.log(user);
   const filter = applications.filter(
     (applicant) => applicant.status === "Accepted",
   );
@@ -54,7 +58,7 @@ export default function FounderOverview({ applications, ManageOpportunities }) {
     totalOpportunities: ManageOpportunities.length || 0,
     totalApplications: applications.length || 0,
     acceptedMembers: filter.length || 0,
-  }; 
+  };
 
   const chartData = [
     {
@@ -81,10 +85,21 @@ export default function FounderOverview({ applications, ManageOpportunities }) {
     <div className="space-y-6 max-w-7xl mx-auto p-2">
       {/* Page Title Header Block */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-800/60 pb-5">
-        <div>
-          <h1 className="text-xl font-bold tracking-tight text-white">
+        <div className="text-start">
+          <h1 className="text-2xl font-bold tracking-tight text-white">
             Founder Hub Overview
           </h1>
+          <div className="flex gap-3">
+            <h1 className="text-xl font-bold tracking-tight text-white">
+              Wellcome, {user?.name}{" "}
+            </h1>
+            {user?.isBlock === false ? (
+              <span className=" text-green-500">Varifyed</span>
+            ) : (
+              <span className=" text-yellow-500">Blocked</span>
+            )}
+          </div>
+
           <p className="text-xs text-slate-400 mt-0.5">
             Track venture pipelines, conversion ratios, and developer ecosystem
             growth nodes.

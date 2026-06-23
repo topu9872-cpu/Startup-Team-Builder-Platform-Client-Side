@@ -44,7 +44,7 @@ export default function Login() {
     }),
   };
   const searchParams = useSearchParams();
-  const redirectTo = searchParams.get("callbackUrl") || "/";
+  const redirectTo = searchParams.get("redirect") || "/";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -59,7 +59,7 @@ export default function Login() {
 
     if (data) {
       router.push(redirectTo);
-      toast.success("Account Created Successfully !");
+      toast.success("Login Successfully !");
     } else if (error) {
       toast.error("Something want !");
     }

@@ -155,5 +155,6 @@ export const getAllUsers = async () => {
  */
 
 export const updateAllUsers = async (id, data) => {
-  return getData(`/users/${id}`,data);
+  console.log(id, data)
+  return UpdateData(`/update/users/${id}`,data);
 };

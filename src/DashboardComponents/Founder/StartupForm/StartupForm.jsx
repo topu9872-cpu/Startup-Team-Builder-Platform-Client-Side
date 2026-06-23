@@ -147,7 +147,7 @@ export default function StartupForm({ user,companies }) {
                     <td className="p-3">
                       <span
                         className={`px-2 py-0.5 rounded text-[10px] font-medium uppercase ${
-                          c.status === "approved"
+                          c.status === "Approved"
                             ? "bg-green-500/20 text-green-500"
                             : "bg-yellow-500/20 text-yellow-500"
                         }`}

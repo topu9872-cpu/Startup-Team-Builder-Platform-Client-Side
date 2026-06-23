@@ -3,6 +3,8 @@ import { auth } from "./lib/auth";
 import { headers } from "next/headers";
 
 export async function proxy(request) {
+
+  const { pathname} = request.nextUrl
   
 const session=await auth.api.getSession({
   headers:await headers()
@@ -10,7 +12,7 @@ const session=await auth.api.getSession({
 
 if (!session) {
         const loginUrl = new URL("/login", request.url)
-        loginUrl.searchParams.set("callbackUrl", request.url)
+        loginUrl.searchParams.set("redirect",pathname)
         return NextResponse.redirect(loginUrl)
     }
 

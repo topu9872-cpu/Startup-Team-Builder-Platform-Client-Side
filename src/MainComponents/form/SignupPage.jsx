@@ -35,7 +35,7 @@ export default function Signup() {
   };
   const router = useRouter();
   const searchParam = useSearchParams();
-  const redirectTo = searchParam.get("callbackUrl") || "/";
+  const redirectTo = searchParam.get("redirect") || "/";
   const handleSubmit = async (e) => {
     e.preventDefault();
     const plan = role === "collaborator" ? "collaborator_free" : "founder_free";
@@ -54,7 +54,7 @@ export default function Signup() {
     });
 
     if (data) {
-      toast.success("Login Successful !");
+      toast.success("An Account Created Successfully !");
       router.push(redirectTo);
     }
     if (error) {

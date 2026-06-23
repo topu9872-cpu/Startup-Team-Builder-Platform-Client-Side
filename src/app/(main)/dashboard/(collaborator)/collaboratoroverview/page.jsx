@@ -10,7 +10,7 @@ const OverviewPage =async () => {
     const CollaboratorData = await CollaboratorApplyData(user?.id);
   return (
     <div>
-       <CollaboratorDashboard CollaboratorData={CollaboratorData}/>
+       <CollaboratorDashboard CollaboratorData={CollaboratorData} user={user}/>
     </div>
   );
 };
