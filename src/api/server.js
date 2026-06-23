@@ -50,7 +50,6 @@ export const UpdateData = async (path, data) => {
 
   try {
     const res = await fetch(`${BASE_URL}${path}`, {
-   
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${token}`,
