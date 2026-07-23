@@ -31,13 +31,13 @@ const NavBar = () => {
     collaborator: "/dashboard/collaboratoroverview",
   };
 
-  if (user?.email) {
-    priveteNavData.push(
-      <NavLink key={user?.role} href={priveteNav[user?.role]}>
-        Dashboard
-      </NavLink>,
-    );
-  }
+ if (user?.email && user?.role && priveteNav[user.role]) {
+  priveteNavData.push(
+    <NavLink key={user.role} href={priveteNav[user.role]}>
+      Dashboard
+    </NavLink>,
+  );
+}
 
   const handleLogout = async () => {
     await authClient.signOut({

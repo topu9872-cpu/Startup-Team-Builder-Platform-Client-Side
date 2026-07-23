@@ -3,14 +3,14 @@ import { MongoClient } from "mongodb";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 
 const client = new MongoClient(process.env.MONGODB_URI);
-// await client.connect();
+
 const db = client.db("Startup-Team-Builder-Platform");
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
-    // Optional: if you don't provide a client, database transactions won't be enabled.
     client,
   }),
+
   user: {
     additionalFields: {
       role: {
@@ -25,7 +25,7 @@ export const auth = betterAuth({
         type: "boolean",
         defaultValue: false,
       },
-       bio: {
+      bio: {
         type: "string",
         required: false,
       },
@@ -35,9 +35,18 @@ export const auth = betterAuth({
       },
     },
   },
+
   emailAndPassword: {
     enabled: true,
   },
+    account: {
+    accountLinking: {
+      enabled: true,
+       trustedProviders: ["google", "github"],
+    },
+  },
+
+
   socialProviders: {
     github: {
       clientId: process.env.GITHUB_CLIENT_ID,
@@ -49,4 +58,3 @@ export const auth = betterAuth({
     },
   },
 });
-// app/api/auth/[...all]/route.ts
